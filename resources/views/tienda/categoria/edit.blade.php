@@ -15,7 +15,6 @@
                                 <h2 class="font-semibold dark:text-gray-200 text-xl text-gray-600">{{ __('Edit Category') }}</h2>
                                 <p class="text-gray-500 dark:text-gray-200 mb-6"></p>
                             </div>
-
                             <div class="bg-gray-200 dark:bg-gray-800 rounded-xl shadow-lg p-4 px-4 md:p-8 mb-6">
                                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                                     <div class="text-gray-600">
@@ -53,7 +52,7 @@
                                             <div class="md:col-span-7 text-right">
                                                 <div class="inline-flex items-end">
                                                     
-                                                    <a class="mr-4 text-xs font-bold" href="{{ route('tienda.categoria.index') }}">
+                                                    <a class="mr-4 text-xs font-bold" href="{{ route('categoria.index') }}"> 
                                                         <div class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                             {{ __('Cancel') }}
                                                         </div>

@@ -15,18 +15,44 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href=" {{ route('tienda.categoria.index') }} " :active="request()->routeIs('tienda.categoria.index')">
+                    <x-nav-link href=" {{ route('categoria.index') }} " :active="request()->routeIs('categoria.index')">
                         {{ __('Category') }}
                     </x-nav-link>
-                    <x-nav-link href=" {{ route('tienda.articulo.index') }} " :active="request()->routeIs('tienda.articulo.index')">
+                    <x-nav-link href=" {{ route('articulo.index') }} " :active="request()->routeIs('articulo.index')"> 
                         {{ __('Article') }}
                     </x-nav-link>
                     <x-nav-link href=" {{ route('tienda.ingreso') }} " :active="request()->routeIs('tienda.ingreso')">
                         {{ __('Income') }}
                     </x-nav-link>
-                    <x-nav-link href=" {{ route('persona.cliente') }} " :active="request()->routeIs('persona.cliente')">
-                        {{ __('Person') }}
-                    </x-nav-link>
+                    
+                    <div class="mt-5 -mr-2">
+                        <x-dropdown :active="request()->routeIs('persona.cliente')">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <div type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150">
+                                        {{ __('Person') }}
+    
+                                        <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                    </div>
+                                </span>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link href="{{ route('cliente.index') }}">
+                                    {{ __('Client') }}
+                                </x-dropdown-link>
+
+                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                                
+                                <x-dropdown-link href="{{ route('proveedor.index') }}">
+                                    {{ __('Provider') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+
                     <x-nav-link href=" {{ route('tienda.venta') }} " :active="request()->routeIs('tienda.venta')">
                         {{ __('Sale') }}
                     </x-nav-link>

@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div>
-                <a href="{{ route('categoria.crear')}}">
+                <a href="{{ route('categoria.create')}}">
                     <x-button class="mt-4">
                         {{ __('New Category') }}
                     </x-button>
@@ -81,10 +81,9 @@
                             <x-dropdown-link :href="route('categoria.edit', $categoria)">
                                 {{ __('Edit Category') }}
                             </x-dropdown-link>
-                            <form method="POST" action="{{ route('categoria.destroy', $categoria) }}"
-                                class="eliminarCategory">
+                            <form method="POST" action="{{ route('categoria.destroy', $categoria) }}" class="eliminar">
                                 @csrf @method('DELETE')
-                                <x-dropdown-link class="deleteCategory">
+                                <x-dropdown-link>
                                     {{-- event.preventDefault(); this.closest('form').submit(); --}}
                                     {{ __('Delete Category') }}
                                 </x-dropdown-link>
@@ -176,24 +175,26 @@
     @default
     @endswitch
     <script>
-        const alertaEliminar = document.querySelector('.eliminarCategory');
-        alertaEliminar.addEventListener('click',function(e){
-            e.preventDefault();
-            Swal.fire({ 
-                title: "{{ __('Are you sure?')}}",    
-                text: "{{ __('You won´t be able to revert this!') }}",
-                icon: "warning",
-                showCancelButton: true,
-                color: textColor,
-                background: bodyColor,
-                confirmButtonColor: botonConfirmar,
-                cancelButtonColor: botonCancelar,
-                confirmButtonText: "{{ __('Yes, delete it!') }}"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.closest('form').submit();
-                    }
-                });
+        const alertaEliminar = document.querySelectorAll('.eliminar');
+        alertaEliminar.forEach(function (alerta) {
+            alerta.addEventListener('click',function(e){
+                e.preventDefault();
+                Swal.fire({ 
+                    title: "{{ __('Are you sure?')}}",    
+                    text: "{{ __('You won´t be able to revert this!') }}",
+                    icon: "warning",
+                    showCancelButton: true,
+                    color: textColor,
+                    background: bodyColor,
+                    confirmButtonColor: botonConfirmar,
+                    cancelButtonColor: botonCancelar,
+                    confirmButtonText: "{{ __('Yes, delete it!') }}"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.closest('form').submit();
+                        }
+                    });
+            });
         });
     </script>
     @endsection

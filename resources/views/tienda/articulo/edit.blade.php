@@ -96,7 +96,7 @@
                                                 <div class="inline-flex items-end">
 
                                                     <a class="mr-4 text-xs font-bold"
-                                                        href="{{ route('tienda.articulo.index') }}">
+                                                        href="{{ route('articulo.index') }}">
                                                         <div class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                             {{ __('Cancel') }}
                                                         </div>

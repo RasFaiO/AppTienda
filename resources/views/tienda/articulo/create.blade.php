@@ -90,7 +90,7 @@
                                                 <input type="file" name="image_uri" id="image_uri"
                                                     class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
                                                     value="{{ old('image_uri') }}" />
-                                            </div>
+                                            </div> 
 
                                             <div class="md:col-span-5 dark:text-gray-200 mx-6">
                                                 <x-validation-errors />
@@ -98,7 +98,7 @@
                                             <div class="md:col-span-5 text-right">
                                                 <div class="inline-flex items-end">
                                                     <a class="mr-4 text-xs font-bold"
-                                                        href="{{ route('tienda.articulo.index') }}">
+                                                        href="{{ route('articulo.index') }}">
                                                         <div class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                             {{ __('Cancel') }}
                                                         </div>

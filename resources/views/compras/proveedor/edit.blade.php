@@ -2,7 +2,7 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Client') }}
+            {{ __('Edit Provider') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -12,7 +12,7 @@
                     <div class="container max-w-screen-lg mx-auto dark:bg-gray-800">
                         <div>
                             <div class="text-center">
-                                <h2 class="font-semibold dark:text-gray-200 text-xl text-gray-600">{{ __('Edit Client')
+                                <h2 class="font-semibold dark:text-gray-200 text-xl text-gray-600">{{ __('Edit Provider')
                                     }}</h2>
                                 <p class="text-gray-500 dark:text-gray-200 mb-6"></p>
                             </div>
@@ -21,12 +21,12 @@
                                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                                     <div class="text-gray-600 ">
                                         <p class="font-medium dark:text-gray-200 text-lg">
-                                            {{ __('Update client data') }}
+                                            {{ __('Update provider data') }}
                                         </p>
                                     </div>
 
                                     <form class="lg:col-span-2" method="POST"
-                                        action=" {{ route('cliente.update', $persona) }} ">
+                                        action=" {{ route('proveedor.update', $persona) }} ">
                                         @csrf @method('PUT')
                                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                             <div class="md:col-span-5 dark:text-gray-200">
@@ -155,13 +155,13 @@
                                                 <div class="inline-flex items-end">
 
                                                     <a class="text-xs font-bold mr-4"
-                                                        href="{{ route('cliente.index') }}">
+                                                        href="{{ route('proveedor.index') }}">
                                                         <div class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                             {{ __('Cancel') }}
                                                         </div>
                                                     </a>
                                                     <x-button class="mt-4">
-                                                        {{ __('Update Client') }}
+                                                        {{ __('Update Provider') }}
                                                     </x-button>
                                                 </div>
                                             </div>

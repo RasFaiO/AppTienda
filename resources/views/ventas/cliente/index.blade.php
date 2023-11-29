@@ -2,7 +2,7 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Articulos') }}
+            {{ __('Clients') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -183,24 +183,26 @@
         @default 
     @endswitch
     <script>
-        const alertaEliminar = document.querySelector('.eliminar');
-        alertaEliminar.addEventListener('click',function(e){
-            e.preventDefault();
-            Swal.fire({ 
-                title: "{{ __('Are you sure?')}}",    
-                text: "{{ __('You won´t be able to revert this!') }}",
-                icon: "warning",
-                showCancelButton: true,
-                color: textColor,
-                background: bodyColor,
-                confirmButtonColor: botonConfirmar,
-                cancelButtonColor: botonCancelar,
-                confirmButtonText: "{{ __('Yes, delete it!') }}"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.closest('form').submit();
-                    }
-                });
+        const alertaEliminar = document.querySelectorAll('.eliminar');
+        alertaEliminar.forEach(function (alerta) {
+            alerta.addEventListener('click',function(e){
+                e.preventDefault();
+                Swal.fire({ 
+                    title: "{{ __('Are you sure?')}}",    
+                    text: "{{ __('You won´t be able to revert this!') }}",
+                    icon: "warning",
+                    showCancelButton: true,
+                    color: textColor,
+                    background: bodyColor,
+                    confirmButtonColor: botonConfirmar,
+                    cancelButtonColor: botonCancelar,
+                    confirmButtonText: "{{ __('Yes, delete it!') }}"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.closest('form').submit();
+                        }
+                    });
+            });
         });
     </script>
     @endsection

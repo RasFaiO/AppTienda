@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\String_;
 
 class CategoriaController extends Controller
 {
@@ -27,17 +29,22 @@ class CategoriaController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoriaRequest $request)
     {
         // Almacena en la DB el registro
-        $request->input('condicion',1);
-        $validar = $request->validate([
-            'nombre' => ['required','min:5','max:20'],
-            'descripcion' => ['required','min:5'],
-            'condicion' => []
-        ]);
-        Categoria::create($validar);
-        return to_route('tienda.categoria.index')
+        // $request->input('condicion',1);
+        // $validar = $request->validate([
+        //     'nombre' => ['required','min:5','max:20'],
+        //     'descripcion' => ['required','min:5'],
+        //     'condicion' => []
+        // ]);
+        // Categoria::create($validar);
+        $categoria = new Categoria;
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->condicion = 1;
+        $categoria->save();
+        return to_route('categoria.index')
         ->with('status','created');
     }
 
@@ -50,33 +57,37 @@ class CategoriaController extends Controller
         ]);
     }
 
-    public function edit(Categoria $categoria)
+    public function edit(String $id)
     {
         // Muestra la vista para editar
+        $categoria = Categoria::findOrFail($id);
         return view('tienda.categoria.edit',[
             'categoria' => $categoria
         ]);
     }
 
-    public function update(Request $request, Categoria $categoria)
+    public function update(CategoriaRequest $request, String $id)
     {
         // Actualiza los Datos en la DB, finalmente retorna a la ruta index
-        $validar = $request->validate([
-            'nombre' => ['required','min:5','max:50'],
-            'descripcion' => ['required','min:5'],
-            'condicion' => ['boolean']
-        ]);
-        $categoria->update($validar);
-        return to_route('tienda.categoria.index')
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->condicion = 1;
+        $categoria->update();
+        return to_route('categoria.index')
         ->with('status','updated');
     }
 
-    public function destroy(Categoria $categoria)
+    public function destroy(String $id)
     {
         // Elimina los datos de la DB, en este caso solo actualizamos la condicion a 0
+        // $categoria->condicion = 0;
+        // $categoria->update();
+        $categoria = Categoria::findOrFail($id);
         $categoria->condicion = 0;
         $categoria->update();
-        return to_route('tienda.categoria.index')
+
+        return to_route('categoria.index')
         ->with('status','deleted');
     }
 }

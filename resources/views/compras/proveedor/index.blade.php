@@ -2,76 +2,78 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Articulos') }}
+            {{ __('Providers') }}
         </h2>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div>
-                <a href="{{ route('articulo.create')}}">
-                    <x-button class="mt-4">
-                        {{ __('New Article') }}
-                    </x-button>
-                </a>
+                <a href="{{ route('proveedor.create')}}">
+                <x-button class="mt-4">
+                    {{ __('New Provider') }}
+                </x-button>
+            </a>
             </div>
             <div>
-                @include('tienda.articulo.search')
+                @include('compras.proveedor.search')
             </div>
             <div class="mt-6 bg-white dark:bg-gray-800 shadow-sm sounded-lg divide-y dark:divide-gray-900">
-                @foreach ($articulos as $articulo)
+                @foreach ($personas as $persona)
                 <div class="p-6 flex space-x-2">
-                    @if ($articulo->image_uri)
-                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{  'storage/images/articulos/'.$articulo->image_uri }}" alt="Article_Image">
-                    @endif
                     <div class="flex-1">
                         <div class="flex justify-between items-center">
                             <div>
-                                
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>Id:
-                                        {{$articulo->id}} <br></h3>
+                                        {{$persona->id}} <br></h3>
+                                </span>
+                                <span class="text-gray-800 dark:text-gray-200">
+                                    <h3>
+                                        {{ __('Type:')}}
+                                        {{$persona->tipo_persona}} <br>
+                                    </h3>
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
                                         {{ __('Name:')}}
-                                        {{$articulo->nombre}} <br>
+                                        {{$persona->nombre}} <br>
                                     </h3>
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('Code:')}}
-                                        {{$articulo->codigo}} <br>
+                                        {{ __('Document type:')}}
+                                        {{$persona->tipo_documento}} <br>
                                     </h3>
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('stock:')}}
-                                        {{$articulo->stock}} <br>
+                                        {{ __('Document number:')}}
+                                        {{$persona->num_documento}} <br>
                                     </h3>
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('Description:')}}
-                                        {{$articulo->descripcion}} <br>
+                                        {{ __('Address:')}}
+                                        {{$persona->direccion}} <br>
                                     </h3>
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('Category:')}}
-                                        {{$articulo->categorias->nombre}} <br>
+                                        {{ __('Phone number:')}}
+                                        {{$persona->telefono}} <br>
                                     </h3>
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('State:')}}
-                                        {{$articulo->estado}} <br>
+                                        {{ __('E-mail:')}}
+                                        {{$persona->email}} <br>
                                     </h3>
                                 </span>
                                 <small class="ml-2 text-sm text-gray-600 dark:text-gray-400">
                                     <p>{{ __('Created at:')}}</p> {{
-                                    $articulo->created_at}}
+                                    $persona->created_at}}
                                 </small>
-                                @unless ($articulo->created_at ==($articulo->updated_at))
+                                @unless ($persona->created_at ==($persona->updated_at))
                                 <small class="text-sm text-gray-600 dark:text-gray-400">
                                     &middot; {{ __('Edited') }}
                                 </small>
@@ -93,15 +95,15 @@
                         </x-slot>
                         <x-slot name="content">
                             {{-- Edita Artículo --}}
-                            <x-dropdown-link :href="route('articulo.edit', $articulo)">
-                                {{ __('Edit Article') }}
+                            <x-dropdown-link :href="route('proveedor.edit', $persona)">
+                                {{ __('Edit Provider') }}
                             </x-dropdown-link>
                             {{-- Elimina articulo --}}
-                            <form method="POST" action="{{ route('articulo.destroy', $articulo) }}"
+                            <form method="POST" action="{{ route('proveedor.destroy', $persona) }}"
                                 class="eliminar">
                                 @csrf @method('DELETE')
-                                <x-dropdown-link class="deleteCategory">
-                                    {{ __('Delete Article') }}
+                                <x-dropdown-link>
+                                    {{ __('Delete Provider') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -113,7 +115,7 @@
                 <div class="col-span-1 pt-4">
                 </div>
                 <div class="col-span-1 pt-4">
-                    {{ $articulos->links() }}
+                    {{ $personas->links() }}
                 </div>
                 <div class="col-span-1 pt-4">
                 </div>
@@ -144,7 +146,7 @@
             <script>
                 Swal.fire({ 
                 position: "top-end", 
-                title: "{{ __('Category created successfully!') }}",
+                title: "{{ __('Provider created successfully!') }}",
                 icon: "success",
                 showConfirmButton: false,
                 color: textColor,
@@ -157,7 +159,7 @@
             <script>
                 Swal.fire({ 
                 position: "top-end", 
-                title: "{{ __('Your article has been deleted.') }}",
+                title: "{{ __('The provider has been deleted.') }}",
                 icon: "success",
                 showConfirmButton: false,
                 color: textColor,
@@ -169,7 +171,7 @@
             <script>
                 Swal.fire({ 
                 position: "top-end", 
-                title: "{{ __('Article updated successfully!') }}",
+                title: "{{ __('Provider updated successfully!') }}",
                 icon: "success",
                 showConfirmButton: false,
                 color: textColor,

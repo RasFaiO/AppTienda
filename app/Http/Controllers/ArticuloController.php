@@ -17,9 +17,10 @@ class ArticuloController extends Controller
             $query = $request->get('searchText');
             // with() = join
             $articulos = Articulo::with('categorias')
-            ->where('estado','activo')
+            ->where('estado','Activo')
             ->Where('nombre','LIKE','%'.$query.'%')
             ->orWhere('codigo','LIKE','%'.$query.'%')
+            ->where('estado','Activo')
             ->orderBy('id','desc')
             ->paginate(3);
         }
@@ -65,7 +66,7 @@ class ArticuloController extends Controller
         $articulo->save();
 
         // dd( $request->hasFile('image_uri')) ;
-        return to_route('tienda.articulo.index')
+        return to_route('articulo.index')
         ->with('status','created');
     }
 
@@ -120,10 +121,11 @@ class ArticuloController extends Controller
         $article->descripcion = $request->descripcion;
         $article->categorias_id = $request->categorias_id;
         $article->image_uri = $fileName;
+        $article->estado = 'Activo';
         $article->update();
         
         // return $articulo->image_uri;
-        return to_route('tienda.articulo.index')
+        return to_route('articulo.index')
         ->with('status','updated');
     }
 
@@ -136,7 +138,7 @@ class ArticuloController extends Controller
         $articulo = Articulo::findOrFail($id);
         $articulo->estado = 'Inactivo';
         $articulo->update();
-        return to_route('tienda.articulo.index')
+        return to_route('articulo.index')
         ->with('status','deleted');
     }
 }
