@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('/cliente', ClienteController::class);
     // Provedores
     Route::resource('/proveedor', ProveedorController::class);
+    // Ingreso
+    Route::resource('/ingreso', IngresoController::class);
 
 
 

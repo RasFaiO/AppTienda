@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('detalle_ingresos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_ingreso');
-            $table->unsignedInteger('id_articulo');
-            $table->integer('Cantidad');
+            $table->foreignId('id_ingreso')->references('id')->on('ingresos')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_articulo')->references('id')->on('articulos')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('cantidad');
             $table->decimal('precio_compra',11,2);
             $table->decimal('precio_venta',11,2)->nullable();
             $table->timestamps();
-
-            $table->foreignId('ingresos_id')->references('id')->on('ingresos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('articulos_id')->references('id')->on('articulos')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

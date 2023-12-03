@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
-class ArticuloRequest extends FormRequest
+class IngresoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +23,14 @@ class ArticuloRequest extends FormRequest
     {
         return [
             //
-            'categorias_id' => ['required'],
-            'codigo' => ['required','min:5','max:50'],
-            'nombre'=> ['required','min:5','max:100'],
-            'stock' => ['required','numeric'],
-            'descripcion' => ['required','max:512'],
-            'image_uri' => ['nullable', File::image()]
+            'id_proveedor' => ['required'],
+            'tipo_comprobante' => ['required','min:5','max:20'],
+            'serie_comprobante' => ['max:7'],
+            'num_comprobante' => ['required','max:10'],
+            'id_articulo' => ['required'],
+            'cantidad' => ['required'],
+            'precio_compra' => ['required'],
+            'precio_venta' => ['required']
         ];
     }
 }

@@ -28,6 +28,7 @@ class Articulo extends Model
         // El modelo Articulo pertenece a una categoría 
         return $this->belongsTo(Categoria::class);
     }
+    // belongsToMany?
     public function detalleIngreso(): HasMany{
         return $this->hasMany(DetalleIngreso::class);
     }

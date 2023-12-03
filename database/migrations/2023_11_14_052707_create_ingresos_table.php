@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ingresos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_provedor');
+            $table->foreignId('id_proveedor')->references('id')->on('personas')->onUpdate('cascade')->onDelete('cascade');
             $table->string('tipo_comprobante',20);
             $table->string('serie_comprobante',7)->nullable();
             $table->string('num_comprobante',10);
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('estado',20);
             $table->timestamps();
 
-            $table->foreignId('personas_id')->references('id')->on('personas')->onUpdate('cascade')->onDelete('cascade');
+            
         });
     }
 
