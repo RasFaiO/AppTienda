@@ -52,24 +52,24 @@ class IngresoController extends Controller
                 // )
                 // ->paginate(5);
                 
-                $query = $request->get('searchText');
-                $ingresos = Ingreso::with('persona')
-                ->with('detalle_ingresos')
-                ->where('num_comprobante','LIKE','%'.$query.'%')
-                ->orderBy('id','desc')
-                ->paginate(5);
-                foreach ($ingresos as $ingreso) {
-                    $ingreso->totalizado = 0;
-                    foreach ($ingreso->detalle_ingresos as $detalle) {
-                        $detalle->total = 0;
-                        foreach ($detalle as $detail){
-                            $detalle->total = $detalle->cantidad * $detalle->precio_compra;
-                        };
+            $query = $request->get('searchText');
+            $ingresos = Ingreso::with('persona')
+            ->with('detalle_ingresos')
+            ->where('num_comprobante','LIKE','%'.$query.'%')
+            ->orderBy('id','desc')
+            ->paginate(5);
+            foreach ($ingresos as $ingreso) {
+                $ingreso->totalizado = 0;
+                foreach ($ingreso->detalle_ingresos as $detalle) {
+                    $detalle->total = 0;
+                    foreach ($detalle as $detail){
+                        $detalle->total = $detalle->cantidad * $detalle->precio_compra;
+                    };
                     $ingreso->totalizado += $detalle->total;
                 }
             }
         }
-        return  
+        return
         view('compras.ingreso.index',[
             'searchText' => $query,
             'ingresos' => $ingresos
@@ -116,7 +116,7 @@ class IngresoController extends Controller
             while ($contador < count($id_articulo)) {
                 // tabla en DB detalle_ingreso
                 $detalle = new DetalleIngreso;
-                $detalle->id_ingreso = $ingreso->id_ingreso;
+                $detalle->id_ingreso = $ingreso->id;
                 $detalle->id_articulo = $id_articulo[$contador];
                 $detalle->cantidad = $cantidad[$contador];
                 $detalle->precio_compra = $precio_compra[$contador];
@@ -132,7 +132,7 @@ class IngresoController extends Controller
             DB::rollBack();
         }
         
-        return to_route('ingreso.index');
+        return to_route('tienda.ingreso')->with('status','created');
     }
 
     /**

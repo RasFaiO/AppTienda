@@ -27,10 +27,6 @@ class IngresoRequest extends FormRequest
             'tipo_comprobante' => ['required','min:5','max:20'],
             'serie_comprobante' => ['max:7'],
             'num_comprobante' => ['required','max:10'],
-            'id_articulo' => ['required'],
-            'cantidad' => ['required'],
-            'precio_compra' => ['required'],
-            'precio_venta' => ['required']
         ];
     }
 }
