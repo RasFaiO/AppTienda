@@ -13,10 +13,10 @@ class ProveedorController extends Controller
     {
         if ($request){
             $query = $request->get('searchText');
-            $personas = Persona::where('tipo_persona','Provedor')
+            $personas = Persona::where('tipo_persona','Proveedor')
             ->where('nombre','LIKE','%'.$query.'%')
             ->orwhere('num_documento','LIKE','%'.$query.'%')
-            ->where('tipo_persona','Provedor')
+            ->where('tipo_persona','Proveedor')
             ->orderBy('id','desc')
             ->paginate(5);
             return view('compras.proveedor.index',[
@@ -34,7 +34,7 @@ class ProveedorController extends Controller
     public function store(PersonaRequest $request)
     {
         $persona = new Persona;
-        $persona->tipo_persona = 'Provedor';
+        $persona->tipo_persona = 'Proveedor';
         $persona->nombre = $request->nombre;
         $persona->tipo_documento = $request->tipo_documento;
         $persona->num_documento = $request->num_documento;
