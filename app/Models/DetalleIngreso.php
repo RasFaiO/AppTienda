@@ -21,9 +21,9 @@ class DetalleIngreso extends Model
         'created_at'
     ];
 
-    public function articulos(): BelongsToMany{
+    public function articulos(): BelongsTo{
         // Contiene la llave foranea, es belongsTo
-        return $this->belongsToMany(Articulo::class);
+        return $this->belongsTo(Articulo::class,'id_articulo');
     } 
     public function ingresos(): BelongsTo{
         // un detalle de ingreso tiene un ingreso

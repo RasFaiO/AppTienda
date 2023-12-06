@@ -25,6 +25,12 @@
                             <div>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
+                                        {{ __('Id:')}}
+                                        {{$ingreso->id}} <br>
+                                    </h3>
+                                </span>
+                                <span class="text-gray-800 dark:text-gray-200">
+                                    <h3>
                                         {{ __('Date:')}}
                                         {{$ingreso->created_at}} <br>
                                     </h3>
@@ -68,7 +74,6 @@
                                     &middot; {{ __('Edited') }}
                                 </small>
                                 @endunless
-
                             </div>
                         </div>
                     </div>
@@ -80,7 +85,6 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                 </svg>
-
                             </button>
                         </x-slot>
                         <x-slot name="content">
@@ -89,13 +93,15 @@
                                 {{ __('Entry Details') }}
                             </x-dropdown-link>
                             {{-- Cancela ingreso --}}
-                            <form method="POST" action="{{ route('ingreso.destroy', $ingreso) }}"
+                            @if ($ingreso->estado == "Activo")
+                                <form method="POST" action="{{ route('ingreso.destroy', $ingreso) }}"
                                 class="eliminar">
-                                @csrf @method('DELETE')
-                                <x-dropdown-link>
-                                    {{ __('Cancel Entry') }}
-                                </x-dropdown-link>
-                            </form>
+                                    @csrf @method('DELETE')
+                                    <x-dropdown-link>
+                                        {{ __('Cancel Entry') }}
+                                    </x-dropdown-link>
+                                </form>
+                            @endif
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -112,7 +118,6 @@
     </div>
     @section('js')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
         <script>
             const night = window.matchMedia('(prefers-color-scheme: dark)');
                 if (night.matches){
@@ -133,26 +138,27 @@
             @case('created')
                 <script>
                     Swal.fire({ 
-                    position: "top-end", 
-                    title: "{{ __('Receipt created successfully!') }}",
-                    icon: "success",
-                    showConfirmButton: false,
-                    color: textColor,
-                    background: bodyColor,
-                    timer: 2000
+                        position: "top-end", 
+                        title: "{{ __('Receipt created successfully!') }}",
+                        icon: "success",
+                        showConfirmButton: false,
+                        color: textColor,
+                        background: bodyColor,
+                        timer: 2000
                     });
                 </script>
                 @break
             @case('canceled')
                 <script>
                     Swal.fire({ 
-                    position: "top-end", 
-                    title: "{{ __('The receipt has been canceled.') }}",
-                    icon: "success",
-                    showConfirmButton: false,
-                    color: textColor,
-                    background: bodyColor,
-                    timer: 2000});
+                        position: "top-end", 
+                        title: "{{ __('The income has been canceled.') }}",
+                        icon: "success",
+                        showConfirmButton: false,
+                        color: textColor,
+                        background: bodyColor,
+                        timer: 2000
+                    });
                 </script>
                 @break
             @default 
@@ -172,11 +178,11 @@
                         confirmButtonColor: botonConfirmar,
                         cancelButtonColor: botonCancelar,
                         confirmButtonText: "{{ __('Yes, delete it!') }}"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                this.closest('form').submit();
-                            }
-                        });
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.closest('form').submit();
+                        }
+                    });
                 });
             });
         </script>

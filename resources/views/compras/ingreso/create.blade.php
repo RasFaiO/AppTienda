@@ -24,37 +24,30 @@
                                 <div class="text-sm">
                                     <form method="POST" action=" {{ route('ingreso.store') }} ">
                                         @csrf
-                                        
+
                                         {{-- Aplicamos column-gap --}}
                                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 sm:grid-cols-3">
 
                                             <div class="sm:col-span-3 dark:text-gray-200 grid">
                                                 <label for="id_proveedor">{{ __('Provider') }}</label>
                                                 <select name="id_proveedor" id="id_proveedor"
-                                                    class="rounded-lg dark:bg-gray-800 select2">
-                                                    <option value="" disabled selected>
+                                                    class="rounded-lg dark:bg-gray-800 select2" required>
+                                                    <option name="reiniciar" value="" disabled selected>
                                                         <p>
                                                             {{ __('Select') }}
                                                         </p>
                                                     </option>
                                                     @foreach ($personas as $persona)
-                                                    @if ($persona->id == old('id_proveedor'))
-                                                    <option selected value="{{ $persona->id }}">
-                                                        {{ ($persona->nombre) }}
-                                                    </option>
-                                                    @else
                                                     <option value="{{ $persona->id }}">
                                                         {{ ($persona->nombre) }}
                                                     </option>
-                                                    @endif
                                                     @endforeach
                                                 </select>
                                             </div>
-
                                             <div class="dark:text-gray-200 grid">
                                                 <label for="tipo_comprobante">{{ __('Receipt') }}</label>
                                                 <select name="tipo_comprobante" id="tipo_comprobante"
-                                                    class="rounded-lg dark:bg-gray-800">
+                                                    class="rounded-lg dark:bg-gray-800" required>
 
                                                     @switch(old('tipo_comprobante'))
                                                     @case('Boleta')
@@ -151,89 +144,117 @@
                                             {{-- Ingreso --}}
                                             <div class="sm:col-span-3 ">
                                                 <div class="">
-                                                    <div class=" grid gap-4 grid-cols-2 md:grid-cols-3 dark:bg-gray-700 bg-gray-300 rounded pt-12 px-2">
+                                                    <div class=" grid gap-4 grid-cols-2 md:grid-cols-3 dark:bg-gray-700 bg-gray-300 rounded-t-lg pt-12 px-2">
                                                         <div class="text-center col-span-2 md:col-span-3">
-                                                            <h2 class="font-semibold dark:text-gray-200 text-xl text-gray-600">
+                                                            <h2
+                                                                class="font-semibold dark:text-gray-200 text-xl text-gray-600">
                                                                 {{ __('Income') }}
                                                             </h2>
                                                         </div>
-                                                        <div class="col-span-2 md:col-span-3 dark:text-gray-200 flex flex-wrap sm:grid">
-                                                            <label class="basis-full pb-2" for="p_id_articulo">{{ __('Article') }}</label>
-                                                            <select name="p_id_articulo" id="p_id_articulo" class="rounded-lg dark:bg-gray-800 basis-full select2">
+                                                        <div
+                                                            class="col-span-2 md:col-span-3 dark:text-gray-200 flex flex-wrap sm:grid">
+                                                            <label class="basis-full pb-2" for="p_id_articulo">{{
+                                                                __('Article') }}</label>
+                                                            <select name="p_id_articulo" id="p_id_articulo"
+                                                                class="rounded-lg dark:bg-gray-800 basis-full select2">
                                                                 <option value="" disabled selected>
-                                                                        {{ __('Select') }}
+                                                                    {{ __('Select') }}
                                                                 </option>
                                                                 @foreach ($articulos as $articulos)
-                                                                    @if ($articulos->id == old('p_id_articulo'))
-                                                                    <option selected value="{{ $articulos->id }}">
-                                                                        {{ ($articulos->codigo.' '.$articulos->nombre) }}
-                                                                    </option>
-                                                                    @else
-                                                                    <option value="{{ $articulos->id }}">
-                                                                        {{ ($articulos->codigo.' '.$articulos->nombre) }}
-                                                                    </option>
-                                                                    @endif
+                                                                @if ($articulos->id == old('p_id_articulo'))
+                                                                <option selected value="{{ $articulos->id }}">
+                                                                    {{ ($articulos->codigo.' '.$articulos->nombre) }}
+                                                                </option>
+                                                                @else
+                                                                <option value="{{ $articulos->id }}">
+                                                                    {{ ($articulos->codigo.' '.$articulos->nombre) }}
+                                                                </option>
+                                                                @endif
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="dark:text-gray-200">
-                                                            <label for="p_cantidad">{{ __('Quantity') }}</label> 
+                                                            <label for="p_cantidad">{{ __('Quantity') }}</label>
                                                             <input type="number" name="p_cantidad" id="p_cantidad"
-                                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                            value="{{ old('p_p_cantidad') }}" placeholder="" />
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
+                                                                value="{{ old('p_p_cantidad') }}" placeholder="" />
                                                         </div>
                                                         <div class="dark:text-gray-200">
-                                                            <label for="p_precio_compra">{{ __('Purchase price') }}</label> 
-                                                            <input type="number" name="p_precio_compra" id="p_precio_compra"
-                                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                            value="{{ old('p_precio_compra') }}" placeholder="" />
+                                                            <label for="p_precio_compra">{{ __('Purchase price')
+                                                                }}</label>
+                                                            <input type="number" name="p_precio_compra"
+                                                                id="p_precio_compra"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
+                                                                value="{{ old('p_precio_compra') }}" placeholder="" />
                                                         </div>
                                                         <div class="dark:text-gray-200">
-                                                            <label for="p_precio_venta">{{ __('Sale price') }}</label> 
-                                                            <input type="number" name="p_precio_venta" id="p_precio_venta"
-                                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                            value="{{ old('p_precio_venta') }}" placeholder="" />
+                                                            <label for="p_precio_venta">{{ __('Sale price') }}</label>
+                                                            <input type="number" name="p_precio_venta"
+                                                                id="p_precio_venta"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
+                                                                value="{{ old('p_precio_venta') }}" placeholder="" />
                                                         </div>
                                                         <div class="md:col-span-3 dark:text-gray-200 text-right grid">
                                                             <div class="text-xs font-bold mb-3">
-                                                                <button type="button" id="btn_add" class="px-4 py-2 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
+                                                                <button type="button" id="btn_add"
+                                                                    class="px-4 py-2 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                                     {{ __('Add Product') }}
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="px-2 py-2 dark:bg-gray-700 bg-gray-300 overflow-x-auto">
-                                                        <table id="detalles" class="w-full overflow-hidden table-auto">
+                                                    <div
+                                                        class="px-2 py-2 dark:bg-gray-700 bg-gray-300 overflow-x-auto md:overflow-x-visible rounded-b-lg">
+                                                        <table id="detalles"
+                                                            class="w-full table-auto border-spacing-1 border-separate">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-200">{{ __('Options')}}</th>
-                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-200">{{ __('Article')}}</th>
-                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-200">{{ __('Quantity')}}</th>
-                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-200">{{ __('Purchase price')}}</th>
-                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-200">{{ __('Sale price')}}</th>
-                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-200">{{ __('SubTotal')}}</th>
+                                                                    <th
+                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Options')}}</th>
+                                                                    <th
+                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Article')}}</th>
+                                                                    <th
+                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Quantity')}}</th>
+                                                                    <th
+                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Purchase price')}}</th>
+                                                                    <th
+                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Sale price')}}</th>
+                                                                    <th
+                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('SubTotal')}}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>
-                                                                    <td class="px-4 py-2 border dark-border-gray-400 dark:text-gray-400">
-                                                                        TOTAL
+                                                                    <td
+                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Total to pay:') }}
                                                                     </td>
-                                                                    <td class="px-4 py-2 border dark-border-gray-400 dark:text-gray-400">
-                                                                        
+                                                                    <td
+                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+
                                                                     </td>
-                                                                    <td class="px-4 py-2 border dark-border-gray-400 dark:text-gray-400">
-                                                                        
+                                                                    <td
+                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+
                                                                     </td>
-                                                                    <td class="px-4 py-2 border dark-border-gray-400 dark:text-gray-400">
-                                                                        
+                                                                    <td
+                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+
                                                                     </td>
-                                                                    <td class="px-4 py-2 border dark-border-gray-400 dark:text-gray-400">
-                                                                        
+                                                                    <td
+                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+
                                                                     </td>
-                                                                    <td class="px-4 py-2 border dark-border-gray-400 dark:text-gray-400">
+                                                                    <td
+                                                                        class="text-center px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg lg:hover:bg-gray-800 hover:scale-105">
                                                                         <h4 id="total">$/. 0.00</h4>
                                                                     </td>
                                                                 </tr>
@@ -248,15 +269,16 @@
                                             </div>
 
                                             <div class="sm:col-span-3 text-right">
-                                                <div class="inline-flex items-end" id="botones">
+                                                <div class="inline-flex items-end">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <a class="mr-4 text-xs font-bold"
                                                         href="{{ route('tienda.ingreso') }}">
-                                                        <div class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
+                                                        <div
+                                                            class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                             {{ __('Cancel') }}
                                                         </div>
                                                     </a>
-                                                    <x-button class="mt-4">
+                                                    <x-button class="mt-4" id="botones">
                                                         {{ __('Create Income')}}
                                                     </x-button>
                                                 </div>
@@ -272,11 +294,12 @@
         </div>
     </div>
     @section('js')
-        <script>
-            $('.select2').select2();
-        </script>
-        <script>
-            $(document).ready(function(){
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $('.select2').select2();
+    </script>
+    <script>
+        $(document).ready(function(){
                 $("#btn_add").click(function(){
                     agregar();
                 });
@@ -293,33 +316,33 @@
                 cantidad = $("#p_cantidad").val();
                 precio_compra = $("#p_precio_compra").val();
                 precio_venta = $("#p_precio_venta").val();
-                if (id_articulo!="" && articulo!="" && cantidad!="" && precio_compra!="" && precio_venta!=""){
+                if (id_articulo!="" && cantidad!="" && cantidad > 0 && precio_compra!="" && precio_venta!=""){
                     subtotal[contador] = (cantidad*precio_compra);
                     total = total+subtotal[contador];
 
-                    var registro = '<tr class="hover:bg-gray-800 hover:scale-105" id="registro' + contador + '">' + 
-                        '<td class="px-4 py-2 border dark:border-gray-400 dark:text-gray-400">' +
-                            '<button type="button" class="bold hover:scale-105 px-5 py-2 bg-gray-800 dark:bg-red-600 text-gray-100 dark:text-gray-100 px-3 py-2 border-gray-200 rounded-lg uppercase" onclick="eliminar(' + contador + ')">' +
+                    var registro = '<tr class="hover:bg-gray-800 lg:hover:scale-105" id="registro' + contador + '">' + 
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg text-center">' +
+                            '<button type="button" class="bold hover:scale-105 px-8 py-1 bg-gray-800 dark:bg-red-600 text-gray-100 dark:text-gray-100 px-3 py-2 border-gray-200 rounded-lg uppercase" onclick="eliminar(' + contador + ')">' +
                                 '{{ __('x') }}' +
                             '</button>' +
                         '</td>' +
-                        '<td class="px-4 py-2 border dark:border-gray-400 dark:text-gray-400">' +
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             '<input type="hidden" name="id_articulo[]" value="' + id_articulo + '">' +
                             articulo +
                         '</td>' +
-                        '<td class="px-4 py-2 border dark:border-gray-400 dark:text-gray-400">' +
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             '<input type="hidden" name="cantidad[]" value="' + cantidad + '">' +
                             cantidad +
                         '</td>' +
-                        '<td class="px-4 py-2 border dark:border-gray-400 dark:text-gray-400">' +
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             '<input type="hidden" name="precio_compra[]" value="' + precio_compra + '">' +
                             precio_compra +
                         '</td>' +
-                        '<td class="px-4 py-2 border dark:border-gray-400 dark:text-gray-400">' +
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             '<input type="hidden" name="precio_venta[]" value="' + precio_venta + '">' +
                             precio_venta +
                         '</td>' +
-                        '<td class="px-4 py-2 border dark:border-gray-400 dark:text-gray-400">' +
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             subtotal[contador] +
                         '</td>' +
                     '</tr>';
@@ -329,14 +352,23 @@
                     evaluar();
                     $("#detalles").append(registro);
                 } else {
-                    alert("error al ingresar datos de registro");
+                    // alert("error al ingresar datos de registro, revise los datos del artículo");
+                    Swal.fire({
+                        title: "{{ __('Check the entry fields') }}",
+                        text: "{{ __('One or more input fields are missing') }}",
+                        icon: "question"
+                    });
                 }
             }
             function limpiar(){
                 $("#p_cantidad").val("");
                 $("#p_precio_compra").val("");
                 $("#p_precio_venta").val("");
-                $("#p_id_articulo option:selected").text("");
+                // $("#p_id_articulo:selected").val("");
+                // $('.select2').select2({
+                //     placeholder: "Select",
+                //     allowClear: true
+                // });
             }
             function evaluar(){
                 if(total>0){
@@ -351,6 +383,6 @@
                 $("#total").html("$/. " + total);
                 evaluar();
             }
-        </script>
+    </script>
     @endsection
 </x-app-layout>

@@ -9,6 +9,7 @@ use App\Models\Ingreso;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Cast\String_;
 
 // Por medio de este controlador vamos a estar cargando los ingresos a la DB y luego a travéz de un array cargamos todos sus detalles
 class IngresoController extends Controller
@@ -90,9 +91,6 @@ class IngresoController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(IngresoRequest $request)
     {
         //
@@ -115,15 +113,16 @@ class IngresoController extends Controller
             $contador = 0;
             while ($contador < count($id_articulo)) {
                 // tabla en DB detalle_ingreso
-                $detalle = new DetalleIngreso;
-                $detalle->id_ingreso = $ingreso->id;
-                $detalle->id_articulo = $id_articulo[$contador];
-                $detalle->cantidad = $cantidad[$contador];
-                $detalle->precio_compra = $precio_compra[$contador];
-                $detalle->precio_venta = $precio_venta[$contador];
-                $detalle->save();
+                // Estamos implementando observer, así que si creamos un registro en DetalleIngreso con $detalle lo estamos pasando a DetallesObserver para actualizar el valor del stock del articulo
+                $detalle = DetalleIngreso::create([
+                    'id_ingreso' => $ingreso->id,
+                    'id_articulo' => $id_articulo[$contador],
+                    'cantidad' => $cantidad[$contador],
+                    'precio_compra' => $precio_compra[$contador],
+                    'precio_venta' => $precio_venta[$contador]
+                ]);
 
-                $contador = $contador+1;
+                $contador++;
             }
             // Enviamos un commit para la transacción
             DB::commit();
@@ -131,53 +130,53 @@ class IngresoController extends Controller
             // En caso de que haya algún error, anula la transacción
             DB::rollBack();
         }
-        
         return to_route('tienda.ingreso')->with('status','created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request)
+    public function show(String $id)
     {
         //
-        $ingreso = Ingreso::with('personas')
+        $ingreso = Ingreso::with('persona')
         ->with('detalle_ingresos')
-        ->select(DB::raw('sum(cantidad*precio_compra) AS total'))
-        ->where('id_ingreso',$request->id)
-        ->first();
+        ->where('id',$id)->get();
 
-        $detalles = DetalleIngreso::with('articulo')
-        ->where('id_ingreso',$request->id)->get();
-
+        $detalles = DetalleIngreso::with('articulos')
+        ->where('id_ingreso',$id)->get();
+        
+        foreach ($ingreso as $columna) {
+            $columna->total = 0;
+            foreach ($columna->detalle_ingresos as $detalle) {
+                $detalle->subtotal = 0;
+                foreach ($detalle as $sub) {
+                    $detalle->subtotal = $detalle->cantidad * $detalle->precio_compra;
+                }
+                $columna->total += $detalle->subtotal;
+            }
+        }
         return view('compras.ingreso.show',[
             'ingreso' => $ingreso,
             'detalles' => $detalles
         ]);
     }
 
-    public function edit(string $id)
+    public function destroy(String $id)
     {
         //
-    }
+        $ingreso = Ingreso::with('detalle_ingresos')->where('id',$id)->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        foreach ($ingreso as $columna) {
+            foreach ($columna->detalle_ingresos as $detalle) {
+                $id_articulo = $detalle->id_articulo;
+                $cantidad = $detalle->cantidad;
+                $articulo = Articulo::findOrFail($id_articulo);
+                $articulo->stock = $articulo->stock - $cantidad;
+                $articulo->update();
+            }
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-        $ingreso = Ingreso::findOrFail($id)->get();
-        $ingreso->estado = 'Cancelado';
-        $ingreso->update();
-        return to_route('ingreso.index')->with('state','canceled');
+        $upIngreso = Ingreso::findOrFail($id);
+        $upIngreso->estado = 'Cancelado';
+        $upIngreso->update();
+        return to_route('tienda.ingreso')->with('status','canceled');
     }
 }
