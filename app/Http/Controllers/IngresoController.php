@@ -18,40 +18,39 @@ class IngresoController extends Controller
     {
         //
         if ($request) {
-            
             // DB::table('ingresos as i')
             // ->join('personas as p','i.id_proveedor','=','p.id')
             // ->join('detalle_ingresos as di','i.id','=','di.id_ingreso')
             // ->select(
-                //     'i.id',
-                //     'i.created_at',
-                //     'i.updated_at',
-                //     'p.nombre',
-                //     'i.tipo_comprobante',
-                //     'i.serie_comprobante',
-                //     'i.num_comprobante',
-                //     'i.impuesto',
-                //     'i.estado',
-                //     'di.cantidad',
-                //     'di.precio_compra',
-                //     DB::raw('sum(di.cantidad*precio_compra) as total')
+            //     'i.id',
+            //     'i.created_at',
+            //     'i.updated_at',
+            //     'p.nombre',
+            //     'i.tipo_comprobante',
+            //     'i.serie_comprobante',
+            //     'i.num_comprobante',
+            //     'i.impuesto',
+            //     'i.estado',
+            //     'di.cantidad',
+            //     'di.precio_compra',
+            //     DB::raw('sum(di.cantidad*precio_compra) as total')
             //     )
             // ->where('i.num_comprobante','LIKE','%'.$query.'%')
             // ->orderBy('id','desc')
             // ->groupBy(
-                //     'i.id',
-                //     'i.created_at',
-                //     'i.updated_at',
-                //     'p.nombre',
-                //     'i.tipo_comprobante',
-                //     'i.serie_comprobante',
-                //     'i.num_comprobante',
-                //     'i.impuesto',
-                //     'i.estado',
-                //     'di.cantidad',
-                //     'di.precio_compra'
-                // )
-                // ->paginate(5);
+            //     'i.id',
+            //     'i.created_at',
+            //     'i.updated_at',
+            //     'p.nombre',
+            //     'i.tipo_comprobante',
+            //     'i.serie_comprobante',
+            //     'i.num_comprobante',
+            //     'i.impuesto',
+            //     'i.estado',
+            //     'di.cantidad',
+            //     'di.precio_compra'
+            // )
+            // ->paginate(5);
                 
             $query = $request->get('searchText');
             $ingresos = Ingreso::with('persona')

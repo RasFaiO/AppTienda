@@ -17,39 +17,39 @@ class ArticuloSeeder extends Seeder
         //
         $articulo = Articulo::create([
             'categorias_id' => 1,
-            'codigo' => '1234',
-            'nombre' => 'Ejemplo',
+            'codigo' => 'AAA111',
+            'nombre' => 'Resma de Papel Carta',
             'stock' => '1',
             'descripcion' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste,',
             'image_uri' => 'notiene',
-            'estado' => 'activo'
+            'estado' => 'Activo'
         ]);
         $articulo = Articulo::create([
             'categorias_id' => 2,
-            'codigo' => '2345',
-            'nombre' => 'Ejemplo dos',
+            'codigo' => 'AAA112',
+            'nombre' => 'Resma de Papel Oficio',
             'stock' => '1',
             'descripcion' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste,',
             'image_uri' => 'notiene',
-            'estado' => 'activo'
+            'estado' => 'Activo'
         ]);
         $articulo = Articulo::create([
             'categorias_id' => 3,
-            'codigo' => '3456',
-            'nombre' => 'Ejemplo tres',
+            'codigo' => 'AAA113',
+            'nombre' => 'Resma Papel Reciclable',
             'stock' => '1',
             'descripcion' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste,',
             'image_uri' => 'notiene',
-            'estado' => 'activo'
+            'estado' => 'Activo'
         ]);
         $articulo = Articulo::create([
             'categorias_id' => 4,
-            'codigo' => '4567',
-            'nombre' => 'Ejemplo cuatro',
+            'codigo' => 'AAA114',
+            'nombre' => 'Cuadernos',
             'stock' => '1',
             'descripcion' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste,',
             'image_uri' => 'notiene',
-            'estado' => 'activo'
+            'estado' => 'Activo'
         ]);
     }
 }

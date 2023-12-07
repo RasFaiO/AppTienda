@@ -53,7 +53,7 @@
                         </x-dropdown>
                     </div>
 
-                    <x-nav-link href=" {{ route('tienda.venta') }} " :active="request()->routeIs('tienda.venta')">
+                    <x-nav-link href=" {{ route('venta.index') }} " :active="request()->routeIs('venta.index')">
                         {{ __('Sale') }}
                     </x-nav-link>
                 </div>

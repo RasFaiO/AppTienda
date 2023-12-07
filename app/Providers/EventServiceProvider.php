@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Observers\DetallesObserver;
 use App\Models\DetalleIngreso;
+use App\Models\DetalleVenta;
+use App\Observers\DetallesVentaObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,7 @@ class EventServiceProvider extends ServiceProvider
     {
         //
         DetalleIngreso::observe(DetallesObserver::class);
+        DetalleVenta::observe(DetallesVentaObserver::class);
     }
 
     /**

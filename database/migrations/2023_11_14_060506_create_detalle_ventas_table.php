@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('detalle_ventas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('venta_id');
-            $table->unsignedInteger('articulo_id');
+            $table->foreignId('venta_id')->references('id')->on('ventas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('articulo_id')->references('id')->on('articulos')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('cantidad');
             $table->decimal('precio_venta',11,2);
             $table->decimal('descuento',11,2);
             $table->timestamps();
 
-            $table->foreignId('ventas_id')->references('id')->on('ventas')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('articulos_id')->references('id')->on('articulos')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

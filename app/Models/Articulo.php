@@ -29,8 +29,8 @@ class Articulo extends Model
         return $this->belongsTo(Categoria::class);
     }
     // belongsToMany?
-    public function detalleIngreso(): HasMany{
-        return $this->hasMany(DetalleIngreso::class);
+    public function detalle_ingresos(): HasMany{
+        return $this->hasMany(DetalleIngreso::class,'id_articulo');
     }
     public function detalleVenta(): HasOne{
         return $this->hasOne(DetalleVenta::class);

@@ -34,11 +34,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('/proveedor', ProveedorController::class);
     // Ingreso
     Route::resource('/ingreso', IngresoController::class);
-
+    // Venta
+    Route::resource('/venta', VentaController::class);
 
 
     Route::get('/categoria/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
     Route::get('/ingreso', [IngresoController::class, 'index'])->name('tienda.ingreso');
     Route::get('/persona', [PersonaController::class, 'index'])->name('tienda.persona');
-    Route::get('/venta', [VentaController::class, 'index'])->name('tienda.venta');
 });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('cliente_id');
+            $table->foreignId('cliente_id')->references('id')->on('personas')->onUpdate('cascade')->onDelete('cascade');
             $table->string('tipo_comprobante',20);
             $table->string('serie_comprobante',10);
             $table->string('num_comprobante',13);
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('estado',20);
             $table->timestamps();
 
-            $table->foreignId('personas_id')->references('id')->on('personas')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

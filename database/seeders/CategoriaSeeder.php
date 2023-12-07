@@ -21,8 +21,8 @@ class CategoriaSeeder extends Seeder
           'condicion' => 1  
         ]);
         $categoria = Categoria::create([
-          'nombre' => 'Útiles',
-          'descripcion' => 'Útiles',
+          'nombre' => 'Papeleria',
+          'descripcion' => 'Papeleria',
           'condicion' => 1  
         ]);
         $categoria = Categoria::create([
@@ -38,21 +38,6 @@ class CategoriaSeeder extends Seeder
         $categoria = Categoria::create([
           'nombre' => 'Liquidos',
           'descripcion' => 'Líquidos',
-          'condicion' => 1  
-        ]);
-        $categoria = Categoria::create([
-          'nombre' => 'Comida',
-          'descripcion' => 'Productos de Comida',
-          'condicion' => 1  
-        ]);
-        $categoria = Categoria::create([
-          'nombre' => 'Vestuario',
-          'descripcion' => 'Artículos de Vestuario',
-          'condicion' => 1  
-        ]);
-        $categoria = Categoria::create([
-          'nombre' => 'Servicios',
-          'descripcion' => 'Servicios',
           'condicion' => 1  
         ]);
     }

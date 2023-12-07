@@ -2,7 +2,7 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('New Income') }}
+            {{ __('New Sale') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -13,24 +13,23 @@
                         <div>
                             <div class="text-center">
                                 <h2 class="font-semibold dark:text-gray-200 text-xl text-gray-600">
-                                    {{ __('Income') }}
+                                    {{ __('Sale') }}
                                 </h2>
                                 <p class="text-gray-500 dark:text-gray-200 mb-6">
-                                    {{ __('Input details of the receipt to create') }}
+                                    {{ __('Input details of the sale to create') }}
                                 </p>
                             </div>
 
                             <div class="bg-gray-200 dark:bg-gray-800 rounded-xl shadow-lg p-4 px-4 md:p-8 mb-6">
                                 <div class="text-sm">
-                                    <form method="POST" action=" {{ route('ingreso.store') }} ">
+                                    <form method="POST" action=" {{ route('venta.store') }} ">
                                         @csrf
-
                                         {{-- Aplicamos column-gap --}}
                                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 sm:grid-cols-3">
 
                                             <div class="sm:col-span-3 dark:text-gray-200 grid">
-                                                <label for="id_proveedor">{{ __('Provider') }}</label>
-                                                <select name="id_proveedor" id="id_proveedor"
+                                                <label for="cliente_id">{{ __('Client') }}</label>
+                                                <select name="cliente_id" id="cliente_id"
                                                     class="rounded-lg dark:bg-gray-800 select2" required>
                                                     <option name="reiniciar" value="" disabled selected>
                                                         <p>
@@ -124,7 +123,6 @@
                                                     </option>
                                                     @break
                                                     @endswitch
-
                                                 </select>
                                             </div>
 
@@ -141,14 +139,14 @@
                                                     class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
                                                     value="{{ old('num_comprobante') }}" placeholder="" required />
                                             </div>
-                                            {{-- Ingreso --}}
+                                            {{-- Venta --}}
                                             <div class="sm:col-span-3 ">
                                                 <div class="">
                                                     <div class=" grid gap-4 grid-cols-2 md:grid-cols-3 dark:bg-gray-700 bg-gray-300 rounded-t-lg pt-12 px-2">
                                                         <div class="text-center col-span-2 md:col-span-3">
                                                             <h2
                                                                 class="font-semibold dark:text-gray-200 text-xl text-gray-600">
-                                                                {{ __('Income') }}
+                                                                {{ __('Sale Info') }}
                                                             </h2>
                                                         </div>
                                                         <div
@@ -160,41 +158,43 @@
                                                                 <option value="" disabled selected>
                                                                     {{ __('Select') }}
                                                                 </option>
-                                                                @foreach ($articulos as $articulos)
-                                                                @if ($articulos->id == old('p_id_articulo'))
-                                                                <option selected value="{{ $articulos->id }}">
-                                                                    {{ ($articulos->codigo.' '.$articulos->nombre) }}
-                                                                </option>
-                                                                @else
-                                                                <option value="{{ $articulos->id }}">
-                                                                    {{ ($articulos->codigo.' '.$articulos->nombre) }}
-                                                                </option>
-                                                                @endif
+                                                                @foreach ($articulos as $articulo)
+                                                                    @if ($articulo->id == old('p_id_articulo'))
+                                                                        <option selected value="{{ $articulo->id }}">
+                                                                            {{ ($articulo->codigo.' '.$articulo->nombre) }}
+                                                                        </option>
+                                                                    @else
+                                                                        <option value="{{ $articulo->id }}_{{ $articulo->stock }}_{{ $articulo->precio_promedio }}">
+                                                                            {{ ($articulo->codigo.' '.$articulo->nombre) }}
+                                                                        </option>
+                                                                    @endif
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="dark:text-gray-200">
                                                             <label for="p_cantidad">{{ __('Quantity') }}</label>
-                                                            <input type="number" name="p_cantidad" id="p_cantidad"
-                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                                value="{{ old('p_p_cantidad') }}" placeholder="" />
+                                                            <input type="number" name="p_cantidad" id="p_cantidad" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50" placeholder="" />
                                                         </div>
                                                         <div class="dark:text-gray-200">
-                                                            <label for="p_precio_compra">{{ __('Purchase price')
+                                                            <label for="p_stock">{{ __('Stock') }}</label>
+                                                            <input type="number" name="p_stock" id="p_stock"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50 cursor-no-drop"
+                                                                disabled />
+                                                        </div>
+                                                        <div class="dark:text-gray-200">
+                                                            <label for="p_precio_venta">{{ __('Sale price')
                                                                 }}</label>
-                                                            <input type="number" name="p_precio_compra"
-                                                                id="p_precio_compra"
-                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                                value="{{ old('p_precio_compra') }}" placeholder="" />
-                                                        </div>
-                                                        <div class="dark:text-gray-200">
-                                                            <label for="p_precio_venta">{{ __('Sale price') }}</label>
                                                             <input type="number" name="p_precio_venta"
                                                                 id="p_precio_venta"
-                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                                value="{{ old('p_precio_venta') }}" placeholder="" />
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50 cursor-no-drop" disabled />
                                                         </div>
-                                                        <div class="md:col-span-3 dark:text-gray-200 text-right grid">
+                                                        <div class="dark:text-gray-200">
+                                                            <label for="p_descuento">{{ __('% Discount') }}</label>
+                                                            <input type="number" name="p_descuento"
+                                                                id="p_descuento"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50" placeholder="" />
+                                                        </div>
+                                                        <div class="col-span-2 text-center md:mt-6 dark:text-gray-200  md:text-right grid">
                                                             <div class="text-xs font-bold mb-3">
                                                                 <button type="button" id="btn_add"
                                                                     class="px-4 py-2 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
@@ -203,59 +203,53 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="px-2 py-2 dark:bg-gray-700 bg-gray-300 overflow-x-auto md:overflow-x-visible rounded-b-lg">
+                                                    <div class="px-2 py-2 dark:bg-gray-700 bg-gray-300 overflow-x-auto md:overflow-x-visible rounded-b-lg">
                                                         <table id="detalles"
                                                             class="w-full table-auto border-spacing-1 border-separate">
                                                             <thead>
                                                                 <tr>
-                                                                    <th
-                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
-                                                                        {{ __('Options')}}</th>
-                                                                    <th
-                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
-                                                                        {{ __('Article')}}</th>
-                                                                    <th
-                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
-                                                                        {{ __('Quantity')}}</th>
-                                                                    <th
-                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
-                                                                        {{ __('Purchase price')}}</th>
-                                                                    <th
-                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
-                                                                        {{ __('Sale price')}}</th>
-                                                                    <th
-                                                                        class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
-                                                                        {{ __('SubTotal')}}</th>
+                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Options')}}
+                                                                    </th>
+                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Article')}}
+                                                                    </th>
+                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Quantity')}}
+                                                                    </th>
+                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('Sale price')}}
+                                                                    </th>
+                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('% Discount')}}
+                                                                    </th>
+                                                                    <th class="px-4 py-2 border dark:border-gray-400 dark:text-gray-300 rounded-lg">
+                                                                        {{ __('SubTotal')}}
+                                                                    </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>
-                                                                    <td
-                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+                                                                    <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
                                                                         {{ __('Total to pay:') }}
                                                                     </td>
-                                                                    <td
-                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+                                                                    <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
 
                                                                     </td>
-                                                                    <td
-                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+                                                                    <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
 
                                                                     </td>
-                                                                    <td
-                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+                                                                    <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
 
                                                                     </td>
-                                                                    <td
-                                                                        class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
+                                                                    <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
 
                                                                     </td>
-                                                                    <td
-                                                                        class="text-center px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg lg:hover:bg-gray-800 hover:scale-105">
+                                                                    <td class="text-center px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg lg:hover:bg-gray-800 hover:scale-105">
                                                                         <h4 id="total">$/. 0.00</h4>
+                                                                        <input type="hidden" name="total_venta" id="total_venta">
                                                                     </td>
                                                                 </tr>
                                                             </tfoot>
@@ -272,7 +266,7 @@
                                                 <div class="inline-flex items-end">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <a class="mr-4 text-xs font-bold"
-                                                        href="{{ route('tienda.ingreso') }}">
+                                                        href="{{ route('venta.index') }}">
                                                         <div
                                                             class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                             {{ __('Cancel') }}
@@ -312,28 +306,40 @@
     </script>
     <script>
         $('.select2').select2();
-    </script>
-    <script>
         $(document).ready(function(){
-                $("#btn_add").click(function(){
-                    agregar();
-                });
+            $("#btn_add").click(function(){
+                agregar();
             });
+        });
 
-            var contador = 0;
-            total = 0;
-            subtotal = [];
-            $("#botones").hide();
+        var contador = 0;
+        total = 0;
+        subtotal = [];
+        $("#botones").hide();
+        $('#p_id_articulo').change(mostrarValores);
 
-            function agregar(){
-                id_articulo = $("#p_id_articulo").val();
-                articulo = $("#p_id_articulo option:selected").text();
-                cantidad = $("#p_cantidad").val();
-                precio_compra = $("#p_precio_compra").val();
-                precio_venta = $("#p_precio_venta").val();
-                if (id_articulo!="" && cantidad!="" && cantidad > 0 && precio_compra!="" && precio_venta!=""){
-                    subtotal[contador] = (cantidad*precio_compra);
-                    total = total+subtotal[contador];
+        function mostrarValores(){
+            datosArticulo = document.getElementById('p_id_articulo').value.split('_');
+            $('#p_stock').val(datosArticulo[1]);
+            $('#p_precio_venta').val(datosArticulo[2]);
+        }
+
+        function agregar(){
+            datosArticulo = document.getElementById('p_id_articulo').value.split('_');
+
+            articulo_id = datosArticulo[0];
+            articulo = $("#p_id_articulo option:selected").text();
+            cantidad = $("#p_cantidad").val();
+            descuento = $("#p_descuento").val();
+            precio_venta = $("#p_precio_venta").val();
+            stock = $('#p_stock').val();
+            
+            if (articulo_id!="" && cantidad!="" && cantidad > 0 && precio_venta!="" && descuento!="" && stock>0){
+                if (Number(stock) >= Number(cantidad)){
+                    total_descuento = (descuento * (cantidad * precio_venta)/100);
+                    subtotal[contador] = (cantidad * precio_venta) - total_descuento;
+
+                    total = total + subtotal[contador];
 
                     var registro = '<tr class="hover:bg-gray-800 lg:hover:scale-105" id="registro' + contador + '">' + 
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg text-center">' +
@@ -342,7 +348,7 @@
                             '</button>' +
                         '</td>' +
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
-                            '<input type="hidden" name="id_articulo[]" value="' + id_articulo + '">' +
+                            '<input type="hidden" name="articulo_id[]" value="' + articulo_id + '">' +
                             articulo +
                         '</td>' +
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
@@ -350,12 +356,12 @@
                             cantidad +
                         '</td>' +
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
-                            '<input type="hidden" name="precio_compra[]" value="' + precio_compra + '">' +
-                            precio_compra +
-                        '</td>' +
-                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             '<input type="hidden" name="precio_venta[]" value="' + precio_venta + '">' +
                             precio_venta +
+                        '</td>' +
+                        '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
+                            '<input type="hidden" name="descuento[]" value="' + total_descuento + '">' +
+                            total_descuento +
                         '</td>' +
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">' +
                             subtotal[contador] +
@@ -364,29 +370,36 @@
                     contador++;
                     limpiar();
                     $("#total").html("$/. " + total);
+                    $("#total_venta").val(total);
                     evaluar();
                     $("#detalles").append(registro);
                 } else {
-                    // alert("error al ingresar datos de registro, revise los datos del artículo");
                     Swal.fire({
-                        title: "{{ __('Check the entry fields') }}",
-                        text: "{{ __('One or more input fields are missing') }}",
-                        icon: "question",
-                        color: textColor,
-                        background: bodyColor,
-                        confirmButtonColor: botonConfirmar
-                    });
+                    title: "{{ __('out of stock') }}",
+                    text: "{{ __('The number of items exceeds the limit of existing units') }}",
+                    icon: "warning",
+                    color: textColor,
+                    background: bodyColor,
+                    confirmButtonColor: botonConfirmar
+                });
                 }
+            } else {
+                // alert("error al ingresar datos de registro, revise los datos del artículo");
+                Swal.fire({
+                    title: "{{ __('Check the entry fields') }}",
+                    text: "{{ __('One or more input fields are missing') }}",
+                    icon: "info",
+                    color: textColor,
+                    background: bodyColor,
+                    confirmButtonColor: botonConfirmar
+                });
             }
+        }
             function limpiar(){
                 $("#p_cantidad").val("");
-                $("#p_precio_compra").val("");
                 $("#p_precio_venta").val("");
-                // $("#p_id_articulo:selected").val("");
-                // $('.select2').select2({
-                //     placeholder: "Select",
-                //     allowClear: true
-                // });
+                $("#p_descuento").val("");
+                $("#p_stock").val("");
             }
             function evaluar(){
                 if(total>0){
@@ -397,8 +410,9 @@
             }
             function eliminar(index) {
                 total = total - subtotal[index];
-                $("#registro" + index).remove();
                 $("#total").html("$/. " + total);
+                $("#total_venta").val(total);
+                $("#registro" + index).remove();
                 evaluar();
             }
     </script>
