@@ -118,7 +118,7 @@
                                                     <div class="inline-flex items-end" id="botones">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                         <a class="mr-4 text-xs font-bold"
-                                                            href="{{ route('tienda.ingreso') }}">
+                                                            href="{{ route('ingreso.index') }}">
                                                             <div class="bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">
                                                                 {{ __('Return') }}
                                                             </div>

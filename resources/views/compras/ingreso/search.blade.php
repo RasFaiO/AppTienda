@@ -1,4 +1,4 @@
-<form class="lg:col-span-2" method="GET" action=" {{ route('tienda.ingreso'), $searchText }} ">
+<form class="lg:col-span-2" method="GET" action=" {{ route('ingreso.index'), $searchText }} ">
     @csrf
     <x-input 
         name="searchText"
