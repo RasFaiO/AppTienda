@@ -2,7 +2,7 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Provider') }}
+            {{ __('Income') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -72,7 +72,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach ($item->detalle_ingresos as $detalle)
-                                                                    <tr class="hover:bg-gray-800 lg:hover:scale-105">
+                                                                    <tr class="dark:hover:bg-gray-800 lg:hover:scale-105">
                                                                         <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">
                                                                             {{ $detalle->articulos->nombre }}
                                                                         </td>
@@ -105,7 +105,7 @@
                                                                         <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
                                                                             
                                                                         </td>
-                                                                        <td class="px-4 py-2 border dark:border-gray-300 dark:text-gray-300 rounded-lg hover:bg-gray-800 hover:scale-105">
+                                                                        <td class="px-4 py-2 border dark:border-gray-300 dark:text-gray-300 rounded-lg dark:hover:bg-gray-800 hover:scale-105">
                                                                             <h4 class="" id="total">$/ {{ $item->total }}</h4>
                                                                         </td>
                                                                     </tr>

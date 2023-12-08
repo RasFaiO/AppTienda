@@ -335,7 +335,7 @@
                     subtotal[contador] = (cantidad*precio_compra);
                     total = total+subtotal[contador];
 
-                    var registro = '<tr class="hover:bg-gray-800 lg:hover:scale-105" id="registro' + contador + '">' + 
+                    var registro = '<tr class="dark:hover:bg-gray-800 lg:hover:scale-105" id="registro' + contador + '">' + 
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg text-center">' +
                             '<button type="button" class="bold hover:scale-105 px-8 py-1 bg-gray-800 dark:bg-red-600 text-gray-100 dark:text-gray-100 px-3 py-2 border-gray-200 rounded-lg uppercase" onclick="eliminar(' + contador + ')">' +
                                 '{{ __('x') }}' +

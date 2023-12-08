@@ -102,7 +102,7 @@
                                                         </div>
                                                     </a>
                                                     <x-button class="mt-4">
-                                                        {{ __('Update Category') }}
+                                                        {{ __('Update Article') }}
                                                     </x-button>
                                                 </div>
                                             </div>

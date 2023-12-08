@@ -72,7 +72,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach ($detalles as $detalle)
-                                                                    <tr class="hover:bg-gray-800 lg:hover:scale-105">
+                                                                    <tr class="dark:hover:bg-gray-800 lg:hover:scale-105">
                                                                         <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg">
                                                                             {{ $detalle->articulos->nombre }}
                                                                         </td>
@@ -105,7 +105,7 @@
                                                                         <td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-300 rounded-lg">
                                                                             
                                                                         </td>
-                                                                        <td class="px-4 py-2 text-center border dark:border-gray-300 dark:text-gray-300 rounded-lg hover:bg-gray-800 hover:scale-105">
+                                                                        <td class="px-4 py-2 text-center border dark:border-gray-300 dark:text-gray-300 rounded-lg dark:hover:bg-gray-800 hover:scale-105">
                                                                             <h4 class="" id="total">$/ {{ $item->total_venta }}</h4>
                                                                         </td>
                                                                     </tr>

@@ -322,6 +322,20 @@
             datosArticulo = document.getElementById('p_id_articulo').value.split('_');
             $('#p_stock').val(datosArticulo[1]);
             $('#p_precio_venta').val(datosArticulo[2]);
+
+            existePrecio = $("#p_precio_venta").val(); 
+            console.log(existePrecio!="");
+            if (!existePrecio!="") {
+                Swal.fire({
+                    title: "{{ __('No income yet?') }}",
+                    text: "{{ __('To sell this item you must make an income') }}",
+                    icon: "info",
+                    color: textColor,
+                    background: bodyColor,
+                    confirmButtonColor: botonConfirmar
+                });
+                limpiar();
+            }
         }
 
         function agregar(){
@@ -341,7 +355,7 @@
 
                     total = total + subtotal[contador];
 
-                    var registro = '<tr class="hover:bg-gray-800 lg:hover:scale-105" id="registro' + contador + '">' + 
+                    var registro = '<tr class="dark:hover:bg-gray-800 lg:hover:scale-105" id="registro' + contador + '">' + 
                         '<td class="px-4 py-2 border dark:border-gray-500 dark:text-gray-400 rounded-lg text-center">' +
                             '<button type="button" class="bold hover:scale-105 px-8 py-1 bg-gray-800 dark:bg-red-600 text-gray-100 dark:text-gray-100 px-3 py-2 border-gray-200 rounded-lg uppercase" onclick="eliminar(' + contador + ')">' +
                                 '{{ __('x') }}' +
@@ -375,13 +389,13 @@
                     $("#detalles").append(registro);
                 } else {
                     Swal.fire({
-                    title: "{{ __('out of stock') }}",
-                    text: "{{ __('The number of items exceeds the limit of existing units') }}",
-                    icon: "warning",
-                    color: textColor,
-                    background: bodyColor,
-                    confirmButtonColor: botonConfirmar
-                });
+                        title: "{{ __('out of stock') }}",
+                        text: "{{ __('The number of items exceeds the limit of existing units') }}",
+                        icon: "warning",
+                        color: textColor,
+                        background: bodyColor,
+                        confirmButtonColor: botonConfirmar
+                    });
                 }
             } else {
                 // alert("error al ingresar datos de registro, revise los datos del artículo");
