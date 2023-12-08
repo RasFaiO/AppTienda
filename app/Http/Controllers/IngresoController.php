@@ -129,7 +129,7 @@ class IngresoController extends Controller
             // En caso de que haya algún error, anula la transacción
             DB::rollBack();
         }
-        return to_route('tienda.ingreso')->with('status','created');
+        return to_route('ingreso.index')->with('status','created');
     }
 
     public function show(String $id)
