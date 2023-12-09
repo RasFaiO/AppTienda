@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Rules\Role;
@@ -36,5 +37,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('/ingreso', IngresoController::class);
     // Venta
     Route::resource('/venta', VentaController::class);
-
+    //
+    Route::resource('/usuario', UsuarioController::class);
 });
