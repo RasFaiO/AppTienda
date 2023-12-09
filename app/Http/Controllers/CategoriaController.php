@@ -14,7 +14,7 @@ class CategoriaController extends Controller
         // Devuelve la vista con los parametros solicitados
         if ($request){
             $query = $request->get('searchText');
-            $categorias = Categoria::where('condicion',1)->Where('nombre','LIKE','%'.$query.'%')->orderBy('id','desc')->paginate(3);
+            $categorias = Categoria::where('condicion',1)->Where('nombre','LIKE','%'.$query.'%')->orderBy('id','desc')->paginate(7);
             return view('tienda.categoria.index',[
                 'categorias' => $categorias,
                 'searchText' => $query
