@@ -16,7 +16,10 @@ class UsuarioController extends Controller
         //
         if ($request){
             $query = $request->get('searchText');
-            $usuarios = User::Where('name','LIKE','%'.$query.'%')->orderBy('id','desc')->paginate(7);
+            $usuarios = User::Where('name','LIKE','%'.$query.'%')
+            ->orWhere('email','LIKE','%' . $query . '%')
+            ->orderBy('id','desc')
+            ->paginate(7);
             return view('seguridad.usuario.index',[
                 'usuarios' => $usuarios,
                 'searchText' => $query
@@ -45,7 +48,7 @@ class UsuarioController extends Controller
         $usuario->password = bcrypt($request->password);
         $usuario->save();
 
-        return to_route('usuario.index');
+        return to_route('usuario.index')->with('status','created');
     }
 
     /**
@@ -70,15 +73,14 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UsuarioRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         //
         $usuario = User::findOrFail($id);
         $usuario->name = $request->name;
-        $usuario->email = $request->email;
         $usuario->password = bcrypt($request->password);
         $usuario->update();
-        return to_route('usuario.index');
+        return to_route('usuario.index')->with('status','updated');
     }
 
     /**
@@ -88,6 +90,6 @@ class UsuarioController extends Controller
     {
         //
         $usuario = User::where('id',$id)->delete();
-        return to_route('usuario.index');
+        return to_route('usuario.index')->with('status','deleted');
     }
 }
