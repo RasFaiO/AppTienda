@@ -130,7 +130,7 @@
     <script>
         Swal.fire({ 
                 position: "top-end", 
-                title: "{{ __('Category created successfully!') }}",
+                title: "{{ __('User created successfully!') }}",
                 icon: "success",
                 showConfirmButton: false,
                 color: textColor,
@@ -143,7 +143,7 @@
     <script>
         Swal.fire({ 
                 position: "top-end", 
-                title: "{{ __('Your category has been deleted.') }}",
+                title: "{{ __('User has been deleted.') }}",
                 icon: "success",
                 showConfirmButton: false,
                 color: textColor,
@@ -162,14 +162,14 @@
     @case('updated')
     <script>
         Swal.fire({ 
-                position: "top-end", 
-                title: "{{ __('Category updated successfully!') }}",
-                icon: "success",
-                showConfirmButton: false,
-                color: textColor,
-                background: bodyColor,
-                timer: 2000
-                });
+            position: "top-end", 
+            title: "{{ __('User updated successfully!') }}",
+            icon: "success",
+            showConfirmButton: false,
+            color: textColor,
+            background: bodyColor,
+            timer: 2000
+        });
     </script>
     @break
     @default

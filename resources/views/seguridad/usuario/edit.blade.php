@@ -28,24 +28,24 @@
                                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                             <div class="md:col-span-5 dark:text-gray-200">
                                                 <label for="name">{{ __('Name')}}</label>
-                                                <input type="text" name="name" id="name"
-                                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                    value="{{ old('name', $usuario)}}" />
+                                                <input type="text" name="name" id="name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50" value="{{ old('name', $usuario)}}" required autofocus autocomplete="name"/>
                                             </div>
 
                                             <div class="md:col-span-5 dark:text-gray-200">
                                                 <label for="email">{{ __('E-mail')}}</label>
-                                                <input type="email" name="email" id="email"
-                                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                    value="{{ old('email', $usuario)}}" placeholder="" />
+                                                <input type="email" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50" value="{{old('email', $usuario)}}" disabled />
                                             </div>
                                             
                                             <div class="md:col-span-5 dark:text-gray-200">
-                                                <label for="c_email">{{ __('E-mail')}}</label>
-                                                <input type="email" name="c_email" id="c_email"
-                                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
-                                                    value="{{ old('c_email', $usuario)}}" placeholder="" />
+                                                <label for="password">{{ __('Password')}}</label>
+                                                <input type="password" name="password" id="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50" required autocomplete="new-password"/>
                                             </div>
+                                            
+                                            <div class="md:col-span-5 dark:text-gray-200">
+                                                <label for="password_confirmation">{{ __('Confirm password') }}</label>
+                                                <input type="password" name="password_confirmation" id="password_confirmation" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50" required autocomplete="new-password" />
+                                            </div>
+
                                             <div class="md:col-span-5 dark:text-gray-200 mx-6">
                                                 <x-validation-errors />
                                             </div>
