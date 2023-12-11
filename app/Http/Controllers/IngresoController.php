@@ -176,6 +176,6 @@ class IngresoController extends Controller
         $upIngreso = Ingreso::findOrFail($id);
         $upIngreso->estado = 'Cancelado';
         $upIngreso->update();
-        return to_route('tienda.ingreso')->with('status','canceled');
+        return to_route('ingreso.index')->with('status','canceled');
     }
 }
