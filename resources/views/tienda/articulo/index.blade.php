@@ -144,7 +144,7 @@
             <script>
                 Swal.fire({ 
                 position: "top-end", 
-                title: "{{ __('Category created successfully!') }}",
+                title: "{{ __('Article created successfully!') }}",
                 icon: "success",
                 showConfirmButton: false,
                 color: textColor,
@@ -194,7 +194,8 @@
                     background: bodyColor,
                     confirmButtonColor: botonConfirmar,
                     cancelButtonColor: botonCancelar,
-                    confirmButtonText: "{{ __('Yes, delete it!') }}"
+                    confirmButtonText: "{{ __('Yes, delete it!') }}",
+                    cancelButtonText: "{{ __('Cancel') }}"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             this.closest('form').submit();

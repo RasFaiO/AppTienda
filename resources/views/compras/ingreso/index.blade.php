@@ -2,7 +2,7 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Income') }}
+            {{ __('Entry') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -10,7 +10,7 @@
             <div>
                 <a href="{{ route('ingreso.create')}}">
                 <x-button class="mt-4">
-                    {{ __('New Income') }}
+                    {{ __('New Entry') }}
                 </x-button>
             </a>
             </div>
@@ -43,7 +43,7 @@
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('receipt:')}}
+                                        {{ __('Receipt:')}}
                                         {{$ingreso->tipo_comprobante.': '.$ingreso->serie_comprobante.' - '.$ingreso->num_comprobante}} <br>
                                     </h3>
                                 </span>
@@ -139,7 +139,7 @@
                 <script>
                     Swal.fire({ 
                         position: "top-end", 
-                        title: "{{ __('Receipt created successfully!') }}",
+                        title: "{{ __('Entry created successfully!') }}",
                         icon: "success",
                         showConfirmButton: false,
                         color: textColor,
@@ -152,7 +152,7 @@
                 <script>
                     Swal.fire({ 
                         position: "top-end", 
-                        title: "{{ __('The income has been canceled.') }}",
+                        title: "{{ __('The entry has been canceled.') }}",
                         icon: "success",
                         showConfirmButton: false,
                         color: textColor,

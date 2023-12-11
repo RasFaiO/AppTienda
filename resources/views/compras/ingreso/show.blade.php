@@ -2,7 +2,7 @@
     {{-- Slot con nombre --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Income') }}
+            {{ __('Entry') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -13,7 +13,7 @@
                         <div>
                             <div class="text-center">
                                 <h2 class="font-semibold dark:text-gray-200 text-xl text-gray-600">
-                                    {{ __('Income') }}
+                                    {{ __('Entry') }}
                                 </h2>
                                 <p class="text-gray-500 dark:text-gray-200 mb-6">
                                     {{ __('Purchase income details') }}
