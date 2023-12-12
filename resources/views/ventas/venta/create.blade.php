@@ -273,7 +273,7 @@
                                                         </div>
                                                     </a>
                                                     <x-button class="mt-4" id="botones">
-                                                        {{ __('Create Income')}}
+                                                        {{ __('Create Entry')}}
                                                     </x-button>
                                                 </div>
                                             </div>

@@ -43,7 +43,7 @@
                                 </span>
                                 <span class="text-gray-800 dark:text-gray-200">
                                     <h3>
-                                        {{ __('receipt:')}}
+                                        {{ __('Receipt:')}}
                                         {{$venta->tipo_comprobante.': '.$venta->serie_comprobante.' - '.$venta->num_comprobante}} <br>
                                     </h3>
                                 </span>
@@ -90,7 +90,7 @@
                         <x-slot name="content">
                             {{-- Detalles de ingreso --}}
                             <x-dropdown-link :href="route('venta.show', $venta)">
-                                {{ __('Entry Details') }}
+                                {{ __('Sale Details') }}
                             </x-dropdown-link>
                             {{-- Cancela ingreso --}}
                             @if ($venta->estado == "Activo")
@@ -98,7 +98,7 @@
                                 class="eliminar">
                                     @csrf @method('DELETE')
                                     <x-dropdown-link>
-                                        {{ __('Cancel Entry') }}
+                                        {{ __('Cancel Sale') }}
                                     </x-dropdown-link>
                                 </form>
                             @endif
