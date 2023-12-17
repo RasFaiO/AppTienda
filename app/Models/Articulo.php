@@ -32,7 +32,7 @@ class Articulo extends Model
     public function detalle_ingresos(): HasMany{
         return $this->hasMany(DetalleIngreso::class,'id_articulo');
     }
-    public function detalleVenta(): HasOne{
-        return $this->hasOne(DetalleVenta::class);
+    public function detalleVentas(): HasMany{
+        return $this->hasMany(DetalleVenta::class,'articulo_id');
     }
 }
