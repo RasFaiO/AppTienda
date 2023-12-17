@@ -123,88 +123,86 @@
         </div>
     </div>
     @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const night = window.matchMedia('(prefers-color-scheme: dark)');
+                if (night.matches){
+                    // console.log('dark');
+                    var botonConfirmar = '#111827';
+                    var botonCancelar = '#d33';
+                    var bodyColor = '#1f2937';
+                    var textColor = '#fff';
+                } else {
+                    // console.log('no dark');
+                    var botonConfirmar = '#111827';
+                    var botonCancelar = '#d33';
+                    var bodyColor = '';
+                }
+        </script>
 
-    <script>
-        const night = window.matchMedia('(prefers-color-scheme: dark)');
-            if (night.matches){
-                // console.log('dark');
-                var botonConfirmar = '#111827';
-                var botonCancelar = '#d33';
-                var bodyColor = '#1f2937';
-                var textColor = '#fff';
-            } else {
-                // console.log('no dark');
-                var botonConfirmar = '#111827';
-                var botonCancelar = '#d33';
-                var bodyColor = '';
-            }
-    </script>
-
-    @switch(session('status'))
-        @case('created')
-            <script>
-                Swal.fire({ 
-                position: "top-end", 
-                title: "{{ __('Client created successfully!') }}",
-                icon: "success",
-                showConfirmButton: false,
-                color: textColor,
-                background: bodyColor,
-                timer: 2000
-                });
-            </script>
-            @break
-        @case('deleted')
-            <script>
-                Swal.fire({ 
-                position: "top-end", 
-                title: "{{ __('The client has been deleted.') }}",
-                icon: "success",
-                showConfirmButton: false,
-                color: textColor,
-                background: bodyColor,
-                timer: 2000});
-            </script>
-            @break
-        @case('updated')
-            <script>
-                Swal.fire({ 
-                position: "top-end", 
-                title: "{{ __('Client updated successfully!') }}",
-                icon: "success",
-                showConfirmButton: false,
-                color: textColor,
-                background: bodyColor,
-                timer: 2000
-                });
-            </script>
-            @break
-        @default 
-    @endswitch
-    <script>
-        const alertaEliminar = document.querySelectorAll('.eliminar');
-        alertaEliminar.forEach(function (alerta) {
-            alerta.addEventListener('click',function(e){
-                e.preventDefault();
-                Swal.fire({ 
-                    title: "{{ __('Are you sure?')}}",    
-                    text: "{{ __('You won´t be able to revert this!') }}",
-                    icon: "warning",
-                    showCancelButton: true,
+        @switch(session('status'))
+            @case('created')
+                <script>
+                    Swal.fire({ 
+                    position: "top-end", 
+                    title: "{{ __('Client created successfully!') }}",
+                    icon: "success",
+                    showConfirmButton: false,
                     color: textColor,
                     background: bodyColor,
-                    confirmButtonColor: botonConfirmar,
-                    cancelButtonColor: botonCancelar,
-                    confirmButtonText: "{{ __('Yes, delete it!') }}",
-                    cancelButtonText: "{{ __('Cancel') }}"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.closest('form').submit();
-                        }
+                    timer: 2000
                     });
+                </script>
+                @break
+            @case('deleted')
+                <script>
+                    Swal.fire({ 
+                    position: "top-end", 
+                    title: "{{ __('The client has been deleted.') }}",
+                    icon: "success",
+                    showConfirmButton: false,
+                    color: textColor,
+                    background: bodyColor,
+                    timer: 2000});
+                </script>
+                @break
+            @case('updated')
+                <script>
+                    Swal.fire({ 
+                    position: "top-end", 
+                    title: "{{ __('Client updated successfully!') }}",
+                    icon: "success",
+                    showConfirmButton: false,
+                    color: textColor,
+                    background: bodyColor,
+                    timer: 2000
+                    });
+                </script>
+                @break
+            @default 
+        @endswitch
+        <script>
+            const alertaEliminar = document.querySelectorAll('.eliminar');
+            alertaEliminar.forEach(function (alerta) {
+                alerta.addEventListener('click',function(e){
+                    e.preventDefault();
+                    Swal.fire({ 
+                        title: "{{ __('Are you sure?')}}",    
+                        text: "{{ __('You won´t be able to revert this!') }}",
+                        icon: "warning",
+                        showCancelButton: true,
+                        color: textColor,
+                        background: bodyColor,
+                        confirmButtonColor: botonConfirmar,
+                        cancelButtonColor: botonCancelar,
+                        confirmButtonText: "{{ __('Yes, delete it!') }}",
+                        cancelButtonText: "{{ __('Cancel') }}"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                this.closest('form').submit();
+                            }
+                        });
+                });
             });
-        });
-    </script>
+        </script>
     @endsection
 </x-app-layout>
