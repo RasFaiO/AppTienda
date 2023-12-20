@@ -17,19 +17,19 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="grid gap-2 gap-x-2 grid-cols-2 dark:text-gray-200 text-center">
                     <figure class="p-2 m-2">
-                        <h2 class="uppercase text-lg">{{ __('sales per month')}}</h2>
-                        <canvas id="ventaMes"></canvas>
-                    </figure>
-                    <figure>
-                        <h2 class="uppercase text-lg">{{ __('purchases per month')}}</h2>
+                        <h2 class="uppercase text-lg">{{ __('Purchases per month')}}</h2>
                         <canvas id="compraMes"></canvas>
+                    </figure>
+                    <figure class="p-2 m-2">
+                        <h2 class="uppercase text-lg">{{ __('Sales per month')}}</h2>
+                        <canvas id="ventaMes"></canvas>
                     </figure>
                     <figure class="p-2 m-2">
                         <h2 class="uppercase text-lg">{{ __('Products most selled')}}</h2>
                         <canvas id="top5"></canvas>
                     </figure>
-                    <figure>
-                        <h2 class="uppercase text-lg">{{ __('daily sales')}}</h2>
+                    <figure class="p-2 m-2 grid content-center">
+                        <h2 class="uppercase text-lg">{{ __('Daily sales')}}</h2>
                         <canvas id="ventasDiarias"></canvas>
                     </figure>
                 </div>
@@ -38,8 +38,6 @@
     </div>
     @section('js')
         <script>
-
-            
             const night = window.matchMedia('(prefers-color-scheme: dark)');
             if (night.matches){
                 // console.log('dark');
@@ -48,29 +46,57 @@
                 // console.log('no dark');
                 Chart.defaults.color = '#000';
             }
-            
-            function getDataColors(opacity){
-                const colors = ['#7448c2','#21c0d7','#d99e2b','#cd3a81','#9c99cc','#e14eca','#ff0000','#ffffff','#d6ff00','#000fff'];
-                return colors.map(color => opacity ? `${color + opacity}` : color);
-            }
 
             const articleData = JSON.parse(`<?php echo $article; ?>`);
             const sellData = JSON.parse(`<?php echo $sell; ?>`);
+            const purcData = JSON.parse(`<?php echo $purc; ?>`);
+            const dayData = JSON.parse(`<?php echo $day; ?>`);
 
             function printCharts(){
-                productos();
+                compras();
                 ventas();
+                productos();
+                ventDiarias();
+            }
+
+            function compras() {
+                const data = {
+                    labels: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                    datasets: [{
+                        label: '{{__('Purchases per month')}}',
+                        data: purcData.compras,
+                        fill: true,
+                        borderColor: '#9c99cc',
+                        backgroundColor: '#9c99cc',
+                        pointBorderColor: '#fff',
+                        tension: 0.5,
+                        pointRadius: 10,
+                        pointBorderWidth: 3,
+                        hoverRadius: 9,
+                        pointStyle: 'crossRot'
+                    }]
+                };
+                new Chart('compraMes',{
+                    type: 'line', 
+                    data,
+                    // options,
+                });
             }
             
             function ventas() {
                 const data = {
                     labels: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
                     datasets: [{
-                        label: '{{__('Sales amount')}}',
+                        label: '{{__('Sales per month')}}',
                         data: sellData.ventas,
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.5
+                        borderColor: '#4BC0C0',
+                        pointBorderColor: '#fff',
+                        tension: 0.3,
+                        pointRadius: 10,
+                        pointBorderWidth: 3,
+                        hoverRadius: 9,
+                        pointStyle: 'rect'
                     }]
                 };
                 new Chart('ventaMes',{
@@ -84,6 +110,7 @@
                 const data = {
                     labels: top_label,
                     datasets: [{
+                        label: '{{ __('Amount') }}',
                         data: top_data,
                         borderColor: getDataColors(),
                         backgroundColor: getDataColors(20)
@@ -110,6 +137,113 @@
                 });
             }
 
+            function ventDiarias() {
+                dias();
+                const data = {
+                    labels: labelDia,
+                    datasets: [{
+                        label: '{{__('Daily sales')}}',
+                        data: dataDia,
+                        backgroundColor: getDataColors(20),
+                        borderColor: getDataColors(),
+                        borderWidth: 1
+                    }]
+                };
+
+                const options = {
+                    scales: {
+                        y: {
+                            beginAtZero:true
+                        }
+                    }
+                }
+                new Chart('ventasDiarias', {
+                    type: 'bar', 
+                    data, 
+                    options,
+                });
+            }
+            
+            function getDataColors(opacity){
+                const colors = ['#7448c2','#21c0d7','#d99e2b','#cd3a81','#9c99cc','#e14eca','#ff0000','#ffffff','#d6ff00','#000fff','#ED4C29','#79ED29'];
+                return colors.map(color => opacity ? `${color + opacity}` : color);
+            }
+
+            function dias() {
+                const dias = dayData.data;
+                const dia15 = dia14 =  dia13 =  dia12 = dia11 = dia10 = dia9 = dia8 = dia9 =  dia8 = dia7 = dia6 = dia5 = dia4 = dia3 = dia2 = today = 0;
+                dias.forEach(element => {
+                    const nDia = element.dia;
+                    if (nDia == 1) {
+                        dia15 = dia15+1;
+                    }
+                    if (nDia == 2) {
+                        dia14 = dia14+1;
+                    }
+                    if (nDia == 3) {
+                        dia13 = dia13+1;
+                    }
+                    if (nDia == 4) {
+                        dia12 = dia12+1;
+                    }
+                    if (nDia == 5) {
+                        dia11 = dia11+1;
+                    }
+                    if (nDia == 6) {
+                        dia10 = dia10+1;
+                    }
+                    if (nDia == 7) {
+                        dia9 = dia9+1;
+                    }
+                    if (nDia == 8) {
+                        dia8 = dia8+1;
+                    }
+                    if (nDia == 9) {
+                        dia7 = dia7+1;
+                    }
+                    if (nDia == 10) {
+                        dia6 = dia6+1;
+                    }
+                    if (nDia == 11) {
+                        dia5 = dia5+1;
+                    }
+                    if (nDia == 12) {
+                        dia4 = dia4+1;
+                    }
+                    if (nDia == 13) {
+                        dia3 = dia3+1;
+                    }
+                    if (nDia == 14) {
+                        dia2 = dia2+1;
+                    }
+                    if (nDia == 15) {
+                        today = today+1;   
+                    }
+                });
+                dataDia = [];
+                dataDia.push(dia15,dia14,dia13,dia12,dia11,dia10,dia9,dia8,dia7,dia6,dia5,dia4,dia3,dia2,today);
+                
+                const fechaActual = new Date();
+                const topDias = new Date();
+                const fiveteenDaysInMillis = ((24 * 14) * 60) * 60 * 1000; 
+                topDias.setTime(fechaActual.getTime());
+                topDias.setTime(topDias.getTime() - fiveteenDaysInMillis)
+                let cantDias = 0;
+                labelDia = [];
+                const aDayInMillis = 1440 * 60 * 1000;
+                const options = {
+                    month: 'short',
+                    day: 'numeric'
+                }
+                while (cantDias < 15) {
+                    labelDia.push(topDias.toLocaleDateString(undefined, options));
+                    topDias.setTime(topDias.getTime() + aDayInMillis);
+                    cantDias = cantDias+1;
+                }
+                // console.log(dataDia,labelDia)
+                return dataDia,labelDia;
+            }
+            
             function topFive(){
                 // con sort((a,b)) estamos indicando que nos organice el arreglo de mayor a menor cuando retornamos b-a
                 const max = articleData.articulos.sort((a,b) => {
@@ -126,9 +260,7 @@
                     contador++;
                 });
             }
-    
             printCharts();
-    
             
         </script>
     @endsection
