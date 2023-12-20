@@ -4,59 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Models\Articulo;
 use App\Models\DetalleVenta;
+use App\Models\Ingreso;
 use App\Models\Venta;
 use Carbon\Carbon;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-// Index
-public function index(){
-    return view('welcome');
-}
+    // Index
+    public function index(){
+        return view('welcome');
+    }
     // Dashboard
     public function dashboard(){
-        // Ventas
-        $ventas = Venta::where('estado','Activo')->get();
+        // compras
+        $compras = Ingreso::where('estado','Activo')->get();        
         $ene = $feb = $mar = $abr = $may = $jun = $jul = $ago = $sep = $oct = $nov = $dic = 0;
-        $sell = [];
-        foreach ($ventas as $venta) {
-            $mesVenta = $venta->created_at;
-            $mesVenta = Carbon::create($mesVenta)->month;
-            if ($mesVenta == 1) {
-                $ene = $ene+1;
+        $purc = [];
+        foreach ($compras as $compra) {
+            $mesCompra = $compra->created_at;
+            $mesCompra = Carbon::create($mesCompra)->month;
+            if ($mesCompra == 1) {
+                $ene++;
             } else {
-                if ($mesVenta == 2) {
-                    $feb = $feb+1;
+                if ($mesCompra == 2) {
+                    $feb++;
                 } else {
-                    if ($mesVenta == 3){
-                        $mar = $mar+1;
+                    if ($mesCompra == 3){
+                        $mar++;
                     } else {
-                        if ($mesVenta == 4){
-                            $abr = $abr+1;
+                        if ($mesCompra == 4){
+                            $abr++;
                         } else {
-                            if ($mesVenta == 5){
-                                $may = $may+1;
+                            if ($mesCompra == 5){
+                                $may++;
                             } else {
-                                if ($mesVenta == 6){
-                                    $jun = $jun+1;
+                                if ($mesCompra == 6){
+                                    $jun++;
                                 } else {
-                                    if ($mesVenta == 7){
-                                        $jul = $jul+1;
+                                    if ($mesCompra == 7){
+                                        $jul++;
                                     } else {
-                                        if ($mesVenta == 8){
-                                            $ago = $ago+1;
+                                        if ($mesCompra == 8){
+                                            $ago++;
                                         } else {
-                                            if ($mesVenta == 9){
-                                                $sep = $sep+1;
+                                            if ($mesCompra == 9){
+                                                $sep++;
                                             } else {
-                                                if ($mesVenta == 10){
-                                                    $oct = $oct+1;
+                                                if ($mesCompra == 10){
+                                                    $oct++;
                                                 } else {
-                                                    if ($mesVenta == 11){
-                                                        $nov = $nov+1;
+                                                    if ($mesCompra == 11){
+                                                        $nov++;
                                                     } else {
-                                                        $dic = $dic+1;
+                                                        $dic++;
                                                     }
                                                 }
                                             }
@@ -69,7 +71,73 @@ public function index(){
                 }
             }
         }
-       
+        $purc['compras'][] = $ene;
+        $purc['compras'][] = $feb;
+        $purc['compras'][] = $mar;
+        $purc['compras'][] = $abr;
+        $purc['compras'][] = $may;
+        $purc['compras'][] = $jun;
+        $purc['compras'][] = $jul;
+        $purc['compras'][] = $ago;
+        $purc['compras'][] = $sep;
+        $purc['compras'][] = $oct;
+        $purc['compras'][] = $nov;
+        $purc['compras'][] = $dic;
+        $purc['purc'] = json_encode($purc);
+
+        // Ventas
+        $ventas = Venta::where('estado','Activo')->get();
+        $ene = $feb = $mar = $abr = $may = $jun = $jul = $ago = $sep = $oct = $nov = $dic = 0;
+        $sell = [];
+        foreach ($ventas as $venta) {
+            $mesVenta = $venta->created_at;
+            $mesVenta = Carbon::create($mesVenta)->month;
+            if ($mesVenta == 1) {
+                $ene++;
+            } else {
+                if ($mesVenta == 2) {
+                    $feb++;
+                } else {
+                    if ($mesVenta == 3){
+                        $mar++;
+                    } else {
+                        if ($mesVenta == 4){
+                            $abr++;
+                        } else {
+                            if ($mesVenta == 5){
+                                $may++;
+                            } else {
+                                if ($mesVenta == 6){
+                                    $jun++;
+                                } else {
+                                    if ($mesVenta == 7){
+                                        $jul++;
+                                    } else {
+                                        if ($mesVenta == 8){
+                                            $ago++;
+                                        } else {
+                                            if ($mesVenta == 9){
+                                                $sep++;
+                                            } else {
+                                                if ($mesVenta == 10){
+                                                    $oct++;
+                                                } else {
+                                                    if ($mesVenta == 11){
+                                                        $nov++;
+                                                    } else {
+                                                        $dic++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         $sell['ventas'][] = $ene;
         $sell['ventas'][] = $feb;
         $sell['ventas'][] = $mar;
@@ -82,9 +150,7 @@ public function index(){
         $sell['ventas'][] = $oct;
         $sell['ventas'][] = $nov;
         $sell['ventas'][] = $dic;
-
         $sell['sell'] = json_encode($sell);
-        // return  $sell;
 
         // Articulos
         $articulos = Articulo::with('detalleVentas')->get();
@@ -103,11 +169,39 @@ public function index(){
             ];
         }
         $article['article'] = json_encode($article);
+
+        // Ventas Diarias
+        $lastDays = Carbon::today()->sub(15,'days');
+        $ventDiarias = Venta::where('estado','Activo')
+        ->where('created_at','>=',$lastDays)
+        ->get();
+        $contDias = 0;
+        $dia = [];
+        foreach ($ventDiarias as $vDia) {
+            $vDia->ultimos15 = 0;
+            $fechaVenta = $vDia->created_at; // 19-12-2023
+            $diaVenta = Carbon::create($fechaVenta)->day; // 07
+            $currentDia15 = Carbon::create($lastDays)->day; // 04
+            if ($diaVenta != $currentDia15){
+                $contDias = $diaVenta-$currentDia15;  // 07 - 04 = 03
+            }
+            $vDia->ultimos15 = $contDias; // 03
+            $dia['data'][] = [
+                'dia' => $contDias,
+                'fechaVenta' => Carbon::create($fechaVenta)->isoFormat('D/M/Y')
+            ];
+            
+        }
+        $dia['data'] = json_encode($dia);
+        // return $dia;
+        // $dia['labels'][] = $lastDays;
+        
+
         return view('dashboard', [
             'article' => $article['article'],
-            'sell' => $sell['sell']
+            'sell' => $sell['sell'],
+            'purc' => $purc['purc'],
+            'day' => $dia['data']
         ]);
     }
-    //
-
 }
