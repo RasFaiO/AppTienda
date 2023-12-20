@@ -389,5 +389,10 @@
     "Delete User":"Eliminar Usuario",
     "User has been deleted.":"El usuario ha sido eliminado.",
     "Quick search...":"Búsqueda rápida...",
-    "Search":"Buscar"
+    "Search":"Buscar",
+    "Purchases per month":"Compras por mes",
+    "Sales per month":"Ventas por mes",
+    "Products most selled":"Productos más vendidos",
+    "Amount":"Cantidad",
+    "Daily sales":"Ventas Diarias"
 }
