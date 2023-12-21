@@ -138,7 +138,8 @@
             }
 
             function ventDiarias() {
-                dias();
+                const dataDia = dataDias(15);
+                const labelDia = labelDias(15);
                 const data = {
                     labels: labelDia,
                     datasets: [{
@@ -163,85 +164,71 @@
                     options,
                 });
             }
-            
-            function getDataColors(opacity){
-                const colors = ['#7448c2','#21c0d7','#d99e2b','#cd3a81','#9c99cc','#e14eca','#ff0000','#ffffff','#d6ff00','#000fff','#ED4C29','#79ED29'];
-                return colors.map(color => opacity ? `${color + opacity}` : color);
-            }
 
-            function dias() {
-                const dias = dayData.data;
-                const dia15 = dia14 =  dia13 =  dia12 = dia11 = dia10 = dia9 = dia8 = dia9 =  dia8 = dia7 = dia6 = dia5 = dia4 = dia3 = dia2 = today = 0;
-                dias.forEach(element => {
-                    const nDia = element.dia;
-                    if (nDia == 1) {
-                        dia15 = dia15+1;
-                    }
-                    if (nDia == 2) {
-                        dia14 = dia14+1;
-                    }
-                    if (nDia == 3) {
-                        dia13 = dia13+1;
-                    }
-                    if (nDia == 4) {
-                        dia12 = dia12+1;
-                    }
-                    if (nDia == 5) {
-                        dia11 = dia11+1;
-                    }
-                    if (nDia == 6) {
-                        dia10 = dia10+1;
-                    }
-                    if (nDia == 7) {
-                        dia9 = dia9+1;
-                    }
-                    if (nDia == 8) {
-                        dia8 = dia8+1;
-                    }
-                    if (nDia == 9) {
-                        dia7 = dia7+1;
-                    }
-                    if (nDia == 10) {
-                        dia6 = dia6+1;
-                    }
-                    if (nDia == 11) {
-                        dia5 = dia5+1;
-                    }
-                    if (nDia == 12) {
-                        dia4 = dia4+1;
-                    }
-                    if (nDia == 13) {
-                        dia3 = dia3+1;
-                    }
-                    if (nDia == 14) {
-                        dia2 = dia2+1;
-                    }
-                    if (nDia == 15) {
-                        today = today+1;   
-                    }
-                });
-                dataDia = [];
-                dataDia.push(dia15,dia14,dia13,dia12,dia11,dia10,dia9,dia8,dia7,dia6,dia5,dia4,dia3,dia2,today);
-                
+            function meses() {
                 const fechaActual = new Date();
-                const topDias = new Date();
-                const fiveteenDaysInMillis = ((24 * 14) * 60) * 60 * 1000; 
-                topDias.setTime(fechaActual.getTime());
-                topDias.setTime(topDias.getTime() - fiveteenDaysInMillis)
+                const topMes = new Date();
+                const nDaysInMillis = ((24 * (14)) * 60) * 60 * 1000; 
                 let cantDias = 0;
-                labelDia = [];
+                const labelDia = [];
                 const aDayInMillis = 1440 * 60 * 1000;
                 const options = {
                     month: 'short',
                     day: 'numeric'
                 }
-                while (cantDias < 15) {
+                topDias.setTime(fechaActual.getTime());
+                topDias.setTime(topDias.getTime() - nDaysInMillis);
+                while (cantDias < n) {
                     labelDia.push(topDias.toLocaleDateString(undefined, options));
                     topDias.setTime(topDias.getTime() + aDayInMillis);
                     cantDias = cantDias+1;
                 }
-                // console.log(dataDia,labelDia)
-                return dataDia,labelDia;
+                // return labelDia;
+            }
+
+            function getDataColors(opacity){
+                const colors = ['#7448c2','#21c0d7','#d99e2b','#cd3a81','#9c99cc','#e14eca','#ff0000','#ffffff','#d6ff00','#000fff','#ED4C29','#79ED29'];
+                return colors.map(color => opacity ? `${color + opacity}` : color);
+            }
+
+            function dataDias(n) {
+                const dias = dayData.data;
+                const daysToMake = n;
+                const dataDia = [];
+                let i = 1;
+                while (i <= daysToMake) {
+                    let sumaVentas = 0;
+                    dias.forEach(element => {
+                        const diaN = element.dia;
+                        if (diaN == i){
+                            sumaVentas++;
+                        }
+                    })
+                    dataDia.push(sumaVentas);
+                    i++;
+                }
+                return dataDia;
+            }
+
+            function labelDias(n) {
+                const fechaActual = new Date();
+                const topDias = new Date();
+                const nDaysInMillis = ((24 * (n-1)) * 60) * 60 * 1000; 
+                let cantDias = 0;
+                const labelDia = [];
+                const aDayInMillis = 1440 * 60 * 1000;
+                const options = {
+                    month: 'short',
+                    day: 'numeric'
+                }
+                topDias.setTime(fechaActual.getTime());
+                topDias.setTime(topDias.getTime() - nDaysInMillis);
+                while (cantDias < n) {
+                    labelDia.push(topDias.toLocaleDateString(undefined, options));
+                    topDias.setTime(topDias.getTime() + aDayInMillis);
+                    cantDias = cantDias+1;
+                }
+                return labelDia;
             }
             
             function topFive(){
@@ -249,7 +236,7 @@
                 const max = articleData.articulos.sort((a,b) => {
                     return b['cantidad']-a['cantidad'];
                 });
-                contador = 0;
+                let contador = 0;
                 top_label = [];
                 top_data = [];
                 max.forEach(element => {
