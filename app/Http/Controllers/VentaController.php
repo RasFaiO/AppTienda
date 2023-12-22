@@ -45,7 +45,7 @@ class VentaController extends Controller
             }
             $cantidad = count($columna->detalle_ingresos);
             if ($cantidad) {
-                $columna->precio_promedio = $subtotal / $cantidad;
+                $columna->precio_promedio = round($subtotal / $cantidad);
             }
         }
         return view('ventas.venta.create',[
