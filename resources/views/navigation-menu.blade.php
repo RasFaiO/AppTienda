@@ -207,21 +207,21 @@
 
                         <x-slot name="content">
                             <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{-- <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
+                            </x-dropdown-link> --}}
 
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                            {{-- @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}
                                 </x-dropdown-link>
                             @endif
 
-                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                            <div class="border-t border-gray-200 dark:border-gray-600"></div> --}}
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
@@ -256,7 +256,53 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
-
+        <div class="border-t border-gray-200 dark:border-gray-600"></div>
+        <div class="pt-2 pb-3 space-y-1">
+            <div class="ml-2 font-medium text-base text-gray-800 dark:text-gray-200">
+                {{ __('Store') }}
+            </div>
+            <x-responsive-nav-link href="{{ route('articulo.index') }}" :active="request()->routeIs('articulo.index')">
+                {{ __('Article') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('categoria.index') }}" :active="request()->routeIs('categoria.index')">
+                {{ __('Category') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-600"></div>
+        <div class="pt-2 pb-3 space-y-1">
+            <div class="ml-2 font-medium text-base text-gray-800 dark:text-gray-200">
+                {{ __('Shopping') }}
+            </div>
+            <x-responsive-nav-link href="{{ route('ingreso.index') }}" :active="request()->routeIs('ingreso.index')">
+                {{ __('Entry') }}
+            </x-responsive-nav-link>
+            
+            <x-responsive-nav-link href="{{ route('proveedor.index') }}" :active="request()->routeIs('proveedor.index')">
+                {{ __('Provider') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-600"></div>
+        <div class="pt-2 pb-3 space-y-1">
+            <div class="ml-2 font-medium text-base text-gray-800 dark:text-gray-200">
+                {{ __('Sales') }}
+            </div>
+            <x-responsive-nav-link href="{{ route('cliente.index') }}" :active="request()->routeIs('cliente.index')">
+                {{ __('Client') }}
+            </x-responsive-nav-link>
+            
+            <x-responsive-nav-link href="{{ route('venta.index') }}" :active="request()->routeIs('venta.index')">
+                {{ __('Sale') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-600"></div>
+        <div class="pt-2 pb-3 space-y-1">
+            <div class="ml-2 font-medium text-base text-gray-800 dark:text-gray-200">
+                {{ __('Access') }}
+            </div>
+            <x-responsive-nav-link href="{{ route('usuario.index') }}" :active="request()->routeIs('usuario.index')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
+        </div>
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="flex items-center px-4">
@@ -274,9 +320,9 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                {{-- <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link> --}}
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
