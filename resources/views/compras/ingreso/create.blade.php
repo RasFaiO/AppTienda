@@ -38,9 +38,9 @@
                                                         </p>
                                                     </option>
                                                     @foreach ($personas as $persona)
-                                                    <option value="{{ $persona->id }}">
-                                                        {{ ($persona->nombre) }}
-                                                    </option>
+                                                        <option value="{{ $persona->id }}">
+                                                            {{ ($persona->nombre) }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -156,20 +156,20 @@
                                                             <label class="basis-full pb-2" for="p_id_articulo">{{
                                                                 __('Article') }}</label>
                                                             <select name="p_id_articulo" id="p_id_articulo"
-                                                                class="rounded-lg dark:bg-gray-800 basis-full select2">
+                                                                class="rounded-lg dark:bg-gray-800 basis-full select2 w-full">
                                                                 <option value="" disabled selected>
                                                                     {{ __('Select') }}
                                                                 </option>
                                                                 @foreach ($articulos as $articulos)
-                                                                @if ($articulos->id == old('p_id_articulo'))
-                                                                <option selected value="{{ $articulos->id }}">
-                                                                    {{ ($articulos->codigo.' '.$articulos->nombre) }}
-                                                                </option>
-                                                                @else
-                                                                <option value="{{ $articulos->id }}">
-                                                                    {{ ($articulos->codigo.' '.$articulos->nombre) }}
-                                                                </option>
-                                                                @endif
+                                                                    @if ($articulos->id == old('p_id_articulo'))
+                                                                        <option selected value="{{ $articulos->id }}">
+                                                                            {{ ($articulos->codigo.' '.$articulos->nombre) }}
+                                                                        </option>
+                                                                    @else
+                                                                        <option value="{{ $articulos->id }}">
+                                                                            {{ ($articulos->codigo.' '.$articulos->nombre) }}
+                                                                        </option>
+                                                                    @endif
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -194,7 +194,7 @@
                                                                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-300 dark:focus:ring dark:focus:ring-indigo-200 dark:focus:ring-opacity-50"
                                                                 value="{{ old('p_precio_venta') }}" placeholder="" />
                                                         </div>
-                                                        <div class="md:col-span-3 dark:text-gray-200 text-right grid">
+                                                        <div class="md:col-span-3 dark:text-gray-200 text-right grid mt-3">
                                                             <div class="text-xs font-bold mb-3">
                                                                 <button type="button" id="btn_add"
                                                                     class="px-4 py-2 bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-800 px-3 py-2 border rounded-lg uppercase">

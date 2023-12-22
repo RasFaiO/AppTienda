@@ -323,8 +323,7 @@
             $('#p_stock').val(datosArticulo[1]);
             $('#p_precio_venta').val(datosArticulo[2]);
 
-            existePrecio = $("#p_precio_venta").val(); 
-            console.log(existePrecio!="");
+            existePrecio = $("#p_precio_venta").val();
             if (!existePrecio!="") {
                 Swal.fire({
                     title: "{{ __('No income yet?') }}",

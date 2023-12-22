@@ -15,20 +15,20 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="grid gap-2 gap-x-2 grid-cols-2 dark:text-gray-200 text-center">
-                    <figure class="p-2 m-2">
+                <div class="grid gap-2 gap-x-2 md:grid-cols-2 dark:text-gray-200 text-center">
+                    <figure class="p-2 m-2 bg-gray-700 hover:scale-105">
                         <h2 class="uppercase text-lg">{{ __('Purchases per month')}}</h2>
                         <canvas id="compraMes"></canvas>
                     </figure>
-                    <figure class="p-2 m-2">
+                    <figure class="p-2 m-2 bg-gray-700 hover:scale-105">
                         <h2 class="uppercase text-lg">{{ __('Sales per month')}}</h2>
                         <canvas id="ventaMes"></canvas>
                     </figure>
-                    <figure class="p-2 m-2">
+                    <figure class="p-2 m-2 bg-gray-700 hover:scale-105">
                         <h2 class="uppercase text-lg">{{ __('Products most selled')}}</h2>
                         <canvas id="top5"></canvas>
                     </figure>
-                    <figure class="p-2 m-2 grid content-center">
+                    <figure class="p-2 m-2 bg-gray-700 hover:scale-105 grid content-center">
                         <h2 class="uppercase text-lg">{{ __('Daily sales')}}</h2>
                         <canvas id="ventasDiarias"></canvas>
                     </figure>
