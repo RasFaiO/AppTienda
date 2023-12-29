@@ -65,7 +65,7 @@ class ProveedorController extends Controller
     public function update(PersonaRequest $request, string $id)
     {
         $persona = Persona::findOrFail($id);
-        $persona->tipo_persona = 'Provedor';
+        $persona->tipo_persona = 'Proveedor';
         $persona->nombre = $request->nombre;
         $persona->tipo_documento = $request->tipo_documento;
         $persona->num_documento = $request->num_documento;
